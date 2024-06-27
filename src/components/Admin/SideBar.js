@@ -14,8 +14,10 @@ import { BiSolidCameraMovie } from "react-icons/bi";
 import { GiFilmProjector } from "react-icons/gi";
 import { useNavigate, Link } from 'react-router-dom';
 import { RiMovieLine } from "react-icons/ri";
-import { DiReact } from 'react-icons/di'
-import { MdDashboard } from 'react-icons/md'
+import { FaTicketAlt } from "react-icons/fa";
+import { RiDiscountPercentFill } from "react-icons/ri";
+import { MdDiscount } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
 // import { Link, useNavigate } from "react-router-dom";
 
 const SideBar = (props) => {
@@ -56,39 +58,60 @@ const SideBar = (props) => {
                 </SidebarHeader>
 
                 <SidebarContent>
-                    <Menu iconShape="circle">
+                    <Menu iconShape="round">
                         <MenuItem
-                            icon={<RiMovieLine />}
+                            icon={<RiMovieLine />} style={{ fontSize: '18px' }}
                         >
                             Phim
                             <Link to='/admin/manager-movie' />
                         </MenuItem>
                         <MenuItem
-                            icon={<BiSolidCameraMovie />}
+                            icon={<BiSolidCameraMovie />} style={{ fontSize: '18px' }}
                         >
                             Rạp
                             <Link to='/admin/manager-cinema' />
                         </MenuItem>
+                        <MenuItem
+                            icon={<FaTicketAlt />} style={{ fontSize: '18px' }}
+                        >
+                            Vé
+                            <Link to='/admin/manager-ticket' />
+                        </MenuItem>
+                        <MenuItem
+                            icon={<MdDiscount />} style={{ fontSize: '18px' }}
+                        >
+                            Khuyến mãi
+                            <Link to='/admin/manager-promotion' />
+                        </MenuItem>
+                        <MenuItem
+                            icon={<RiDiscountPercentFill />} style={{ fontSize: '18px' }}
+                        >
+                            Voucher
+                            <Link to='/admin/manager-voucher' />
+                        </MenuItem>
+                        <MenuItem
+                            icon={<FaUser />} style={{ fontSize: '18px' }}
+                        >
+                            Tài khoản
+                            <Link to='/admin/manager-account' />
+                        </MenuItem>
                     </Menu>
-                    <Menu iconShape="circle">
+                    {/* <Menu iconShape="round">
                         <SubMenu
                             icon={<FaGem />}
                             title='Movie'
                         >
                             <MenuItem>
                                 Moive Type
-                                {/* <Link to='/admins/manager-user' /> */}
                             </MenuItem>
                             <MenuItem>
                                 Food
-                                {/* <Link to='/admins/manager-quiz' /> */}
                             </MenuItem>
                             <MenuItem>
                                 Ticket
-                                {/* <Link to='/admins/manager-questions' /> */}
                             </MenuItem>
                         </SubMenu>
-                    </Menu>
+                    </Menu> */}
                 </SidebarContent>
 
                 <SidebarFooter style={{ textAlign: 'center' }}>

@@ -1,4 +1,7 @@
 import moment from 'moment';
+import { MdAutoFixHigh } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import { HiDotsVertical } from "react-icons/hi";
 
 const TableMovie = (props) => {
 
@@ -29,7 +32,7 @@ const TableMovie = (props) => {
                     {listMovie && listMovie.length > 0 &&
                         listMovie.map((item, index) => {
                             return (
-                                <tr>
+                                <tr key={item.id}>
                                     <td>{item.id}</td>
                                     <td>{item.name}</td>
                                     <td>{item.time + ` phút`}</td>
@@ -38,9 +41,17 @@ const TableMovie = (props) => {
                                     <td>{item.director}</td>
                                     <td>{item.language}</td>
                                     <td>{item.performer}</td>
-                                    <td>
-                                        <button>Sửa</button>
-                                        <button>Xoá</button>
+                                    <td className=''>
+                                        <div className="dropdown">
+                                            <button className="btn btn-info" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <HiDotsVertical />
+                                            </button>
+                                            <ul className="dropdown-menu dropdown-menu-dark">
+                                                <li><a className="dropdown-item" href="#">Hiển thị</a></li>
+                                                <li><a className="dropdown-item" href="#">Sửa</a></li>
+                                                <li><a className="dropdown-item" href="#">Xoá</a></li>
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                             )

@@ -1,0 +1,179 @@
+.signup-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+
+    .signup-left {
+        width: 50%;
+        background-color: #7ee2d1;
+        // display: flex;
+        // flex-direction: column;
+        text-align: center;
+
+        .content-signup-left {
+            .title-left {
+                font-weight: bold;
+                font-size: 25px;
+                text-align: center;
+                margin: 20px 0;
+            }
+
+            .signup-poster {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+
+                .card-poster {
+                    width: 60%;
+                    display: flex;
+                    height: 270px;
+                    border-radius: 15px;
+                    background-color: #62c4e9;
+                    align-items: center;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+                    .content-poster {
+                        width: 50%;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+
+                        .title-poster {
+                            font-size: 20px;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                            color: white;
+                        }
+
+                        .btn-ticket-signup {
+
+                            button {
+                                color: black;
+                                background-color: #74DAC4;
+                                border: 2px solid white;
+                                border-radius: 10px;
+                                width: 100px;
+                                height: 40px;
+                                font-size: 17px;
+                                font-weight: 600;
+
+                                &:hover {
+                                    background-color: #1dcda7;
+                                    transition: 0.4s;
+                                }
+                            }
+
+                        }
+                    }
+
+                    .img-poster {
+                        width: 50%;
+                        display: flex;
+                        justify-content: end;
+
+                        img {
+                            width: 88%;
+                            border-radius: 0px 15px 15px 0px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .signup-right {
+        width: 50%;
+        display: flex;
+        align-items: center;
+
+        .signup-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
+            .title-signup {
+                font-size: 25px;
+                font-weight: bold;
+                text-align: center;
+                margin: 20px;
+            }
+
+            .signup-form {
+                width: 60%;
+
+                .forgot-password {
+                    cursor: pointer;
+
+                    &:hover {
+                        color: red;
+                    }
+                }
+
+                .border-signup-submit {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 25px;
+
+                    .submit-signup {
+                        border-radius: 8px;
+                        width: 100%;
+                        height: 45px;
+                        background-color: #7ee2d1;
+                        border: none;
+                        font-weight: bold;
+
+                        &:hover {
+                            background-color: #62c4e9;
+                            color: white;
+                            transition: 0.2s ease;
+                        }
+                    }
+                }
+
+                form {
+                    .password-form {
+                        position: relative;
+                    }
+
+                    .show-password {
+                        position: absolute;
+                        cursor: pointer;
+                        right: 10px;
+                        bottom: 10px;
+                    }
+                }
+
+                .no-account {
+                    margin-top: 10px;
+
+                    .signin {
+                        &:hover {
+                            text-decoration: underline;
+                            color: red;
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .go-home {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: red;
+                        text-decoration: underline;
+                    }
+                }
+
+                .text-content-signup {
+                    text-align: center;
+                    margin-top: 30px;
+                }
+            }
+        }
+    }
+}
