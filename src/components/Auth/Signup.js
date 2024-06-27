@@ -63,8 +63,13 @@ const Signup = (props) => {
     }
 
     const checkPhoneNumber = () => {
+        let regexPhoneNumber = /^0\d{9}$/
         if (phoneNumber === '') {
             setErrorPhoneNumber('Chưa nhập số điện thoại')
+            return false
+        }
+        if (!regexPhoneNumber.test(phoneNumber)) {
+            setErrorPhoneNumber('Số điện thoại sai định dạng')
             return false
         }
         setErrorPhoneNumber('')

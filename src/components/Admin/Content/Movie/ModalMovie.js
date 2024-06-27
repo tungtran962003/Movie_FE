@@ -42,45 +42,82 @@ const ModalMovie = (props) => {
     const [errorPerformer, setErrorPerformer] = useState('')
     const [errorDescription, setErrorDescription] = useState('')
 
-    const handleSubmitCreate = () => {
-        let check = true;
+    const checkName = () => {
         if (name === '') {
             setErrorName('Chưa nhập tên')
-            check = false
+            return false
         }
-        if (time === '') {
+        setErrorName('')
+        return true
+    }
+
+    const checkTime = () => {
+        if (name === '') {
             setErrorTime('Chưa nhập thời lượng')
-            check = false
+            return false
         }
         if (isNaN(time)) {
             setErrorTime('Thời lượng phải là số')
-            check = false
+            return false
         }
-        if (time === '0') {
-            setTime('')
-            check = false
-        }
+        setErrorTime('')
+        return true
+    }
+
+    const checkPremiereDate = () => {
         if (premiereDate === '') {
-            setErrorPremiereDate('Chưa chọn ngày')
-            check = false
+            setErrorPremiereDate('Chưa chọn ngày khởi chiếu')
+            return false
         }
+        setErrorPremiereDate('')
+        return true
+    }
+
+    const checkLanguage = () => {
         if (language === '') {
             setErrorLanguage('Chưa nhập ngôn ngữ')
-            check = false
+            return false
         }
+        setErrorLanguage('')
+        return true
+    }
+
+    const checkDirector = () => {
         if (director === '') {
             setErrorDirector('Chưa nhập đạo diễn')
-            check = false
+            return false
         }
-        if (performer === '') {
+        setErrorDirector('')
+        return true
+    }
+
+    const checkPerformer = () => {
+        if (director === '') {
             setErrorPerformer('Chưa nhập diễn viên')
-            check = false
+            return false
         }
+        setErrorPerformer('')
+        return true
+    }
+
+    const checkDescription = () => {
         if (description === '') {
             setErrorDescription('Chưa nhập mô tả')
-            check = false
+            return false
         }
-        if (check === true) {
+        setErrorDescription('')
+        return true
+    }
+
+    const handleSubmitCreate = () => {
+        let isName = checkName()
+        let isTime = checkTime()
+        let isPremiereDate = checkPremiereDate()
+        let isLanguage = checkLanguage()
+        let isDirector = checkDirector()
+        let isPerformer = checkPerformer()
+        let isDescription = checkDescription()
+        if (isName && isTime && isPremiereDate && isLanguage && isDirector && isPerformer && isDescription) {
             // call api
         }
     }
@@ -120,11 +157,11 @@ const ModalMovie = (props) => {
                                         <label className="form-label fw-bold">Thời lượng</label>
                                     </div>
                                     <div>
-                                        <span style={{ color: 'red' }}>{errorPremiereDate}</span>
+                                        <span style={{ color: 'red' }}>{errorTime}</span>
                                     </div>
                                 </div>
                                 <input type="text" className="form-control"
-                                    value={time}
+                                    value={time === '0' ? '' : time}
                                     onChange={(event) => setTime(event.target.value)}
                                 />
                             </div>
@@ -137,10 +174,10 @@ const ModalMovie = (props) => {
                                         <label className="form-label fw-bold">Ngày khởi chiếu</label>
                                     </div>
                                     <div>
-                                        <span style={{ color: 'red' }}>{errorTime}</span>
+                                        <span style={{ color: 'red' }}>{errorPremiereDate}</span>
                                     </div>
                                 </div>
-                                <input type="text" className="form-control"
+                                <input type="date" className="form-control"
                                     value={premiereDate}
                                     onChange={(event) => setPremiereDate(event.target.value)}
                                 />
