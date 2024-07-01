@@ -19,33 +19,55 @@ import TicketAdmin from './components/Admin/Content/Ticket/TicketAdmin';
 import PromtionAdmin from './components/Admin/Content/Promotion/PromotionAdmin';
 import VoucherAdmin from './components/Admin/Content/Voucher/VoucherAdmin';
 import AccountAdmin from './components/Admin/Content/Account/AccountAdmin';
+import MovieTypeAdmin from './components/Admin/Content/MovieType/MovieTypeAdmin';
 import DashBoard from './components/Admin/Content/Dashboard';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SetupRouter = () => {
     return (
-        <Routes>
-            <Route path='/' element={<App />} >
-                <Route index element={<Home />} />
-                <Route path='/movie' element={<Movie />} />
-                <Route path='/cinema' element={<Cinema />} />
-            </Route>
+        <>
+            <Routes>
+                <Route path='/' element={<App />} >
+                    <Route index element={<Home />} />
+                    <Route path='/movie' element={<Movie />} />
+                    <Route path='/cinema' element={<Cinema />} />
+                </Route>
 
-            <Route path='/admin' element={<Admin />}>
-                <Route index element={<DashBoard />} />
-                <Route path='manager-movie' element={<MovieAdmin />} />
-                <Route path='manager-cinema' element={<CinemaAdmin />} />
-                <Route path='manager-ticket' element={<TicketAdmin />} />
-                <Route path='manager-promotion' element={<PromtionAdmin />} />
-                <Route path='manager-voucher' element={<VoucherAdmin />} />
-                <Route path='manager-account' element={<AccountAdmin />} />
-            </Route>
+                <Route path='/admin' element={<Admin />}>
+                    <Route index element={<DashBoard />} />
+                    <Route path='manager-movie' element={<MovieAdmin />} />
+                    <Route path='manager-cinema' element={<CinemaAdmin />} />
+                    <Route path='manager-ticket' element={<TicketAdmin />} />
+                    <Route path='manager-promotion' element={<PromtionAdmin />} />
+                    <Route path='manager-voucher' element={<VoucherAdmin />} />
+                    <Route path='manager-account' element={<AccountAdmin />} />
+                    <Route path='manager-movieType' element={<MovieTypeAdmin />} />
+                </Route>
 
 
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/signup' element={<Signup />} />
 
-            <Route path='*' element={<NotFound />} />
-        </Routes >
+                <Route path='*' element={<NotFound />} />
+            </Routes >
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            {/* Same as */}
+            <ToastContainer />
+        </>
+
     )
 }
 

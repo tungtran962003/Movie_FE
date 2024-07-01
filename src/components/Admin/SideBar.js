@@ -18,6 +18,7 @@ import { FaTicketAlt } from "react-icons/fa";
 import { RiDiscountPercentFill } from "react-icons/ri";
 import { MdDiscount } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
+import { MdBloodtype } from "react-icons/md";
 // import { Link, useNavigate } from "react-router-dom";
 
 const SideBar = (props) => {
@@ -64,6 +65,12 @@ const SideBar = (props) => {
                         >
                             Phim
                             <Link to='/admin/manager-movie' />
+                        </MenuItem>
+                        <MenuItem
+                            icon={<MdBloodtype />} style={{ fontSize: '18px' }}
+                        >
+                            Thể loại
+                            <Link to='/admin/manager-movieType' />
                         </MenuItem>
                         <MenuItem
                             icon={<BiSolidCameraMovie />} style={{ fontSize: '18px' }}
