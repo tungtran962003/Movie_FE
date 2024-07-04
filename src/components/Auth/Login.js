@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from 'react';
+import Captcha from './Captcha';
 
 const Login = (props) => {
 
@@ -156,6 +157,7 @@ const Login = (props) => {
                         <div className='text-content-login'>
                             Trang web được sản xuất và vận hành bởi TTT CINEMA, giám đốc chịu trách nhiệm ©TungTT
                         </div>
+
                     </div>
                 </div>
             </div>

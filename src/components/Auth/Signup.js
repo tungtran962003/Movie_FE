@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from 'react';
+import Captcha from './Captcha';
 
 const Signup = (props) => {
 
@@ -174,7 +175,7 @@ const Signup = (props) => {
                                 />
                             </div>
 
-                            <div className="mb-1 password-form">
+                            <div className="mb-4 password-form">
                                 <div className='d-flex justify-content-between'>
                                     <div>
                                         <label className="form-label fw-bold">Mật khẩu</label>
@@ -194,6 +195,17 @@ const Signup = (props) => {
                                     :
                                     <span onClick={() => setShowPassword(!showPassword)} className='show-password'><FaEyeSlash /></span>
                                 }
+                            </div>
+                            <div className='d-flex justify-content-between align-items-center'>
+                                <div>
+                                    <input
+                                        className="form-control"
+                                        placeholder='Mã xác nhận'
+                                    />
+                                </div>
+                                <div>
+                                    <Captcha />
+                                </div>
                             </div>
                             <div className='border-signup-submit'>
                                 <button className='submit-signup' onClick={(event) => handleSignupSubmit(event)}>

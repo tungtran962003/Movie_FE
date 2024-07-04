@@ -1,0 +1,23 @@
+.captcha-container {
+    display: flex;
+    align-items: center;
+
+    .captcha-canvas {
+        border: 1px solid gray;
+        border-radius: 6px;
+
+    }
+
+    .captcha-refresh-button {
+        border-radius: 7px;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        height: 37px;
+        font-size: 20px;
+        background-color: aquamarine;
+        cursor: pointer;
+    }
+}
