@@ -123,11 +123,34 @@
                         background-color: #7ee2d1;
                         border: none;
                         font-weight: bold;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
 
                         &:hover {
                             background-color: #62c4e9;
                             color: white;
                             transition: 0.2s ease;
+                        }
+
+                        &:disabled {
+                            background-color: gainsboro;
+                            cursor: no-drop;
+                        }
+
+                        .icon-login {
+                            margin-right: 10px;
+                            animation: spin 1s infinite linear;
+                        }
+
+                        @keyframes spin {
+                            from {
+                                transform: scale(1) rotate(0deg);
+                            }
+
+                            to {
+                                transform: scale(1) rotate(360deg);
+                            }
                         }
                     }
                 }

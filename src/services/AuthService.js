@@ -1,9 +1,11 @@
 import axios from "../utils/axiosCustomize";
 
-const signup = () => {
-    const data = new FormData()
-    data.append('/')
-    return axios.post("/signup")
+const signup = (email, name, gender, birthDay, phoneNumber, password) => {
+    return axios.post('/signup', { name, gender, email, password, phoneNumber, birthDay });
 }
 
-// const 
+const login = (email, password, delay) => {
+    return axios.post('/login', { email, password, delay })
+}
+
+export { signup, login }

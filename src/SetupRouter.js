@@ -62,10 +62,8 @@ const SetupRouter = () => {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                theme="light"
+                theme="colored"
             />
-            {/* Same as */}
-            <ToastContainer />
         </>
 
     )

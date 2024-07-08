@@ -6,11 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from 'react';
-import Captcha from './Captcha';
+import { ImSpinner9 } from "react-icons/im";
+import { login } from '../../services/AuthService'
+import { toast } from 'react-toastify';
+import { setCookie, getCookie, removeCookie } from './CookieManager';
 
 const Login = (props) => {
 
     const navigate = useNavigate()
+
+    const delay = 3000
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -19,6 +24,9 @@ const Login = (props) => {
     const [errorPassword, setErrorPassword] = useState('')
 
     const [showPassword, setShowPassword] = useState(false)
+
+    const [isLoading, setIsLoading] = useState(false)
+
 
     const validateEmail = (email) => {
         return String(email)
@@ -50,11 +58,21 @@ const Login = (props) => {
         return true
     }
 
-    const handleLoginSubmit = (event) => {
+    const handleLoginSubmit = async (event) => {
         let isEmail = checkEmail()
         let isPassword = checkPassword()
         if (isEmail && isPassword) {
-            // call api
+            setIsLoading(true)
+            let response = await login(email, password, delay)
+            console.log(response);
+            if (response.statusCode === 0) {
+                setCookie('cookie', response.jwt)
+                navigate('/')
+                return
+            }
+            toast.error(response.message)
+            setIsLoading(false)
+            return
         } else {
             event.preventDefault()
         }
@@ -142,7 +160,11 @@ const Login = (props) => {
                                 Quên mật khẩu ?
                             </span>
                             <div className='border-login-submit'>
-                                <button className='submit-login' onClick={(event) => handleLoginSubmit(event)}>
+                                <button
+                                    className='submit-login'
+                                    onClick={(event) => handleLoginSubmit(event)}
+                                    disabled={isLoading}>
+                                    {isLoading === true && <ImSpinner9 className='icon-login' />}
                                     ĐĂNG NHẬP
                                 </button>
                             </div>

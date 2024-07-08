@@ -132,16 +132,42 @@
                     }
                 }
 
-                form {
-                    .password-form {
-                        position: relative;
+                .password-form {
+                    position: relative;
+                }
+
+                .show-password {
+                    position: absolute;
+                    cursor: pointer;
+                    right: 10px;
+                    bottom: 10px;
+                }
+
+                .captcha-container {
+                    display: flex;
+                    align-items: center;
+
+                    canvas {
+                        width: 111px;
                     }
 
-                    .show-password {
-                        position: absolute;
+                    .captcha-canvas {
+                        border: 1px solid gray;
+                        border-radius: 6px;
+
+                    }
+
+                    .captcha-refresh-button {
+                        border-radius: 7px;
+                        border: none;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 35px;
+                        height: 37px;
+                        font-size: 20px;
+                        background-color: aquamarine;
                         cursor: pointer;
-                        right: 10px;
-                        bottom: 10px;
                     }
                 }
 
