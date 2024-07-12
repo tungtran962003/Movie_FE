@@ -23,6 +23,8 @@ import MovieTypeAdmin from './components/Admin/Content/MovieType/MovieTypeAdmin'
 import DashBoard from './components/Admin/Content/Dashboard';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminRoute from './routes/AdminRoute';
+import Forbidden from './components/Common/Error/Forbidden';
 
 const SetupRouter = () => {
     return (
@@ -34,7 +36,11 @@ const SetupRouter = () => {
                     <Route path='/cinema' element={<Cinema />} />
                 </Route>
 
-                <Route path='/admin' element={<Admin />}>
+                <Route path='/admin' element={
+                    <AdminRoute>
+                        <Admin />
+                    </AdminRoute>
+                }>
                     <Route index element={<DashBoard />} />
                     <Route path='manager-movie' element={<MovieAdmin />} />
                     <Route path='manager-cinema' element={<CinemaAdmin />} />
@@ -48,6 +54,7 @@ const SetupRouter = () => {
 
                 <Route path='/login' element={<Login />} />
                 <Route path='/signup' element={<Signup />} />
+                <Route path='/forbideen' element={<Forbidden />} />
 
                 <Route path='*' element={<NotFound />} />
             </Routes >
