@@ -5,18 +5,73 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink } from 'react-router-dom';
 import { RiMovie2Fill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
+import { setCookie, getCookie, removeCookie } from '../../Auth/CookieManager';
+import { useEffect, useState } from 'react';
+import { getPrincipal } from '../../../services/AuthService';
+import { FaUser } from "react-icons/fa";
+import './Header.scss'
 
 const Header = (props) => {
 
     const navigate = useNavigate()
 
+    const [accountByToken, setAccountByToken] = useState({})
+
+    const [collapsed, setCollapsed] = useState(false)
+
+    const token = getCookie('cookie')
+    useEffect(() => {
+        getAccountByToken()
+    }, [token])
+
+    const getAccountByToken = async () => {
+        if (token === null || token === undefined) {
+            return
+        }
+        let response = await getPrincipal(token)
+        setAccountByToken(response)
+    }
+
     return (
         <div className="header-container">
-            <div className='option-header-account'>
-                <div onClick={() => navigate('/login')} className='login'>Đăng nhập</div>
-                <div className='mx-2'>||</div>
-                <div onClick={() => navigate('/signup')} className='signup'>Đăng ký</div>
-            </div>
+            {token === null || token === undefined ?
+                <>
+                    <div className='option-header-account'>
+                        <div onClick={() => navigate('/login')} className='login'>Đăng nhập</div>
+                        <div className='mx-2'>||</div>
+                        <div onClick={() => navigate('/signup')} className='signup'>Đăng ký</div>
+                    </div>
+                </>
+                :
+                <>
+                    <div className='option-header-account'>
+                        <div className='hello'>Xin chào {accountByToken?.name}</div>
+                        <div className="dropdown-option-account">
+                            <NavDropdown
+                                id="nav-dropdown-dark-example"
+                                menuVariant="dark"
+                                className='no-caret signup'
+                                title={<FaUser />}
+                                onClick={() => setCollapsed(!collapsed)}
+                            >
+                                {accountByToken?.role?.name === 'Admin' || accountByToken?.role?.name === 'Staff' ?
+                                    <NavDropdown.Item onClick={() => navigate('/admin')}>
+                                        Quản lý
+                                    </NavDropdown.Item>
+                                    :
+                                    <></>
+                                }
+
+                                <NavDropdown.Item href="">
+                                    Thông tin cá nhân
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href="">Đăng xuất</NavDropdown.Item>
+                            </NavDropdown>
+                        </div>
+                    </div>
+                </>
+            }
+
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container className='text-uppercase'>
                     <NavLink to="/" className='navbar-brand d-flex align-items-center '>

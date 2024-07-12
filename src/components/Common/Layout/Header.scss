@@ -1,0 +1,56 @@
+.header-container {
+    .navbar-nav {
+        .nav-link {
+            &.active {
+                color: red;
+            }
+        }
+    }
+
+    .option-header-account {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding: 0 20px;
+        background-color: #333333;
+        color: white;
+
+        .login {
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .signup {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .hello {}
+
+        .dropdown-option-account {
+            .no-caret .dropdown-toggle::after {
+                display: none;
+
+
+            }
+        }
+    }
+}
+
+.dropdown-toggle {
+    display: flex !important;
+    align-items: center !important;
+    margin-left: 8px;
+}
+
+.dropdown-menu.show {
+    margin-top: 2px;
+}
