@@ -4,8 +4,8 @@ const getAllMovieType = () => {
     return axios.get('/api/movieType/all')
 }
 
-const getPageMovieType = (page, pageSize) => {
-    return axios.get(`/api/movieType/page?page=${page}&pageSize=${pageSize}`)
+const getPageMovieType = (page, pageSize, token) => {
+    return axios.get(`/api/movieType/page?page=${page}&pageSize=${pageSize}`, { headers: { "Authorization": `Bearer ${token}` } })
 }
 
 const createMovieType = (name) => {

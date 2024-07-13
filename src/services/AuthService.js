@@ -8,4 +8,8 @@ const login = (email, password, delay) => {
     return axios.post('/login', { email, password, delay })
 }
 
-export { signup, login }
+const getPrincipal = (token) => {
+    return axios.get('/principal', { headers: { "Authorization": `Bearer ${token}` } }, { token })
+}
+
+export { signup, login, getPrincipal }

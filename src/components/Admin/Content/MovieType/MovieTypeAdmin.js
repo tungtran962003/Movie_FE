@@ -7,6 +7,7 @@ import { RiAddBoxFill } from "react-icons/ri";
 import ModalCreateMovieType from './ModalCreateMovieType'
 import ModalUpdateMovieType from './ModalUpdateMovieType'
 import ModalDeleteMovieType from './ModalDeleteMovieType'
+import { getCookie } from '../../../Auth/CookieManager'
 
 const MovieTypeAdmin = () => {
 
@@ -22,8 +23,10 @@ const MovieTypeAdmin = () => {
 
     const pageSize = 5;
 
+    const token = getCookie('cookie')
+
     const getListMoiveTypePaginate = async (page) => {
-        let response = await getPageMovieType(page, pageSize)
+        let response = await getPageMovieType(page, pageSize, token)
         setListMovieType(response.content)
         setPageCount(response.totalPages)
     }
@@ -36,6 +39,7 @@ const MovieTypeAdmin = () => {
         setShowModalUpdateMovieType(true)
         setDataUpdate(movieUpdate)
     }
+    console.log(dataUpdate);
 
     const handleClickDelete = (movieDelete) => {
         setShowModalDeleteMovieType(true)
@@ -103,7 +107,6 @@ const MovieTypeAdmin = () => {
                 setCurrentPage={setCurrentPage}
             />
         </>
-
     )
 }
 
