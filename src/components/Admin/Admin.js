@@ -5,6 +5,8 @@ import { useState } from "react";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Outlet } from "react-router-dom";
 import { useNavigate, Link } from 'react-router-dom';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 const Admin = (props) => {
 
@@ -40,9 +42,11 @@ const Admin = (props) => {
                         </NavDropdown>
                     </div>
                 </div>
-                <div>
-                    <Outlet />
-                </div>
+                <PerfectScrollbar>
+                    <div>
+                        <Outlet />
+                    </div>
+                </PerfectScrollbar>
             </div>
         </div>
     )
