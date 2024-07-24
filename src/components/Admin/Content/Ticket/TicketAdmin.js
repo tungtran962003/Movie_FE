@@ -1,9 +1,9 @@
 
 
-const TicketAdmin = (props) => {
+const TicketAdmin = () => {
     return (
-        <div className="ticket-container">
-            TicketAdmin
+        <div>
+            Ticket Admin
         </div>
     )
 }

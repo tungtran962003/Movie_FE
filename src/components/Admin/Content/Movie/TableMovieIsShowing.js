@@ -3,13 +3,14 @@ import { MdAutoFixHigh } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { HiDotsVertical } from "react-icons/hi";
 import ReactPaginate from 'react-paginate';
+import { useEffect } from 'react';
 
-const TableMovie = (props) => {
+const TableMovieIsShowing = (props) => {
 
-    const { listMovie, pageCount } = props
+    const { listMovie, pageCount, setCurrentPage, currentPage, tabMovie } = props
 
     const handlePageClick = (event) => {
-        props.getListMoviePaginate(+event.selected)
+        props.getListMovieIsShowingPaginate(+event.selected)
         props.setCurrentPage(+event.selected)
     };
 
@@ -17,6 +18,10 @@ const TableMovie = (props) => {
         const vietnameseDateTime = moment(dateTime).utcOffset(7).format('DD/MM/YYYY');
         return vietnameseDateTime;
     }
+
+    useEffect(() => {
+        setCurrentPage(0)
+    }, [tabMovie])
 
     return (
         <div className="table-movie">
@@ -98,4 +103,4 @@ const TableMovie = (props) => {
     )
 }
 
-export default TableMovie
+export default TableMovieIsShowing

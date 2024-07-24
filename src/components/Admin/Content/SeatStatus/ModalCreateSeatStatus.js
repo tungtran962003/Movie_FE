@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { RiAddBoxFill } from "react-icons/ri";
-import { createMovieType } from '../../../../services/MovieTypeService';
+import { createSeatStatus } from '../../../../services/SeatStatusService';
 import { toast } from 'react-toastify';
 import { getCookie } from '../../../Auth/CookieManager';
 
-const ModalCreateMovieType = (props) => {
-    const { show, setShow, getListMoiveTypePaginate } = props;
+const ModalCreateSeatStatus = (props) => {
+    const { show, setShow, getListSeatStatusPaginate } = props;
 
     const handleClose = () => {
         setShow(false)
@@ -34,9 +34,9 @@ const ModalCreateMovieType = (props) => {
     const handleSubmitCreate = async () => {
         let isName = checkName()
         if (isName) {
-            let response = await createMovieType(name, token)
+            let response = await createSeatStatus(name, token)
             if (response.statusCode === 0) {
-                await getListMoiveTypePaginate(0)
+                await getListSeatStatusPaginate(0)
                 props.setCurrentPage(0)
                 toast.success(response.message)
                 handleClose()
@@ -55,7 +55,7 @@ const ModalCreateMovieType = (props) => {
                 backdrop='static'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>THÊM THỂ LOẠI PHIM</Modal.Title>
+                    <Modal.Title>THÊM TRẠNG THÁI GHẾ</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form>
@@ -87,4 +87,4 @@ const ModalCreateMovieType = (props) => {
     );
 }
 
-export default ModalCreateMovieType;
+export default ModalCreateSeatStatus;

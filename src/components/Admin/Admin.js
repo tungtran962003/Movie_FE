@@ -7,12 +7,26 @@ import { Outlet } from "react-router-dom";
 import { useNavigate, Link } from 'react-router-dom';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
+import { getCookie, setCookie, removeCookie } from "../Auth/CookieManager";
+import { logout } from "../../services/AuthService";
 
 const Admin = (props) => {
 
     const [collapsed, setCollapsed] = useState(false)
 
     const navigate = useNavigate()
+
+    const token = getCookie('cookie')
+
+    const handleLogout = async () => {
+        if (token === null || token === undefined) {
+            return
+        }
+        let response = await logout(token)
+        console.log(response);
+        navigate('/login')
+        removeCookie('cookie')
+    }
 
     return (
         <div className="admin-container">
@@ -35,10 +49,10 @@ const Admin = (props) => {
                             <NavDropdown.Item onClick={() => navigate('/')}>
                                 Trang chủ
                             </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
+                            <NavDropdown.Item href="">
                                 Thông tin cá nhân
                             </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Đăng xuất</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => handleLogout()}>Đăng xuất</NavDropdown.Item>
                         </NavDropdown>
                     </div>
                 </div>

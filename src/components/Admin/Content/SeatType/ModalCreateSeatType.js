@@ -2,23 +2,27 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { RiAddBoxFill } from "react-icons/ri";
-import { createMovieType } from '../../../../services/MovieTypeService';
 import { toast } from 'react-toastify';
 import { getCookie } from '../../../Auth/CookieManager';
+import { createSeatType } from '../../../../services/SeatTypeService';
 
-const ModalCreateMovieType = (props) => {
-    const { show, setShow, getListMoiveTypePaginate } = props;
+const ModalCreateSeatStatus = (props) => {
+    const { show, setShow, getListSeatTypePaginate } = props;
 
     const handleClose = () => {
         setShow(false)
         setName('')
+        setPrice('')
         setErrorName('')
+        setErrorPrice('')
     }
     const handleShow = () => setShow(true);
 
     const [name, setName] = useState('')
+    const [price, setPrice] = useState('')
 
     const [errorName, setErrorName] = useState('')
+    const [errorPrice, setErrorPrice] = useState('')
 
     const token = getCookie('cookie')
 
@@ -31,12 +35,26 @@ const ModalCreateMovieType = (props) => {
         return true
     }
 
+    const checkPrice = () => {
+        if (price === '') {
+            setErrorPrice('Chưa nhập giá tiền')
+            return false
+        }
+        if (isNaN(price)) {
+            setErrorPrice('Giá tiền phải là số')
+            return false
+        }
+        setErrorPrice('')
+        return true
+    }
+
     const handleSubmitCreate = async () => {
         let isName = checkName()
-        if (isName) {
-            let response = await createMovieType(name, token)
+        let isPrice = checkPrice()
+        if (isName && isPrice) {
+            let response = await createSeatType(name, price, token)
             if (response.statusCode === 0) {
-                await getListMoiveTypePaginate(0)
+                await getListSeatTypePaginate(0)
                 props.setCurrentPage(0)
                 toast.success(response.message)
                 handleClose()
@@ -55,7 +73,7 @@ const ModalCreateMovieType = (props) => {
                 backdrop='static'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>THÊM THỂ LOẠI PHIM</Modal.Title>
+                    <Modal.Title>THÊM LOẠI GHẾ</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form>
@@ -74,6 +92,21 @@ const ModalCreateMovieType = (props) => {
                                     onChange={(event) => setName(event.target.value)}
                                 />
                             </div>
+
+                            <div className="mb-3 " >
+                                <div className='d-flex justify-content-between'>
+                                    <div>
+                                        <label className="form-label fw-bold">Giá tiền</label>
+                                    </div>
+                                    <div>
+                                        <span style={{ color: 'red' }}>{errorPrice}</span>
+                                    </div>
+                                </div>
+                                <input type="text" className="form-control"
+                                    value={price}
+                                    onChange={(event) => setPrice(event.target.value)}
+                                />
+                            </div>
                         </div>
                     </form>
                 </Modal.Body>
@@ -87,4 +120,4 @@ const ModalCreateMovieType = (props) => {
     );
 }
 
-export default ModalCreateMovieType;
+export default ModalCreateSeatStatus;

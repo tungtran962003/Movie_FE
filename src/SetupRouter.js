@@ -20,11 +20,14 @@ import PromtionAdmin from './components/Admin/Content/Promotion/PromotionAdmin';
 import VoucherAdmin from './components/Admin/Content/Voucher/VoucherAdmin';
 import AccountAdmin from './components/Admin/Content/Account/AccountAdmin';
 import MovieTypeAdmin from './components/Admin/Content/MovieType/MovieTypeAdmin';
+import SeatStatusAdmin from './components/Admin/Content/SeatStatus/SeatStatusAdmin';
+import SeatTypeAdmin from './components/Admin/Content/SeatType/SeatTypeAdmin';
 import DashBoard from './components/Admin/Content/Dashboard';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminRoute from './routes/AdminRoute';
 import Forbidden from './components/Common/Error/Forbidden';
+import StaffRoute from './routes/StaffRoute';
 
 const SetupRouter = () => {
     return (
@@ -37,18 +40,63 @@ const SetupRouter = () => {
                 </Route>
 
                 <Route path='/admin' element={
-                    <AdminRoute>
+                    <StaffRoute>
                         <Admin />
-                    </AdminRoute>
+                    </StaffRoute>
                 }>
-                    <Route index element={<DashBoard />} />
-                    <Route path='manager-movie' element={<MovieAdmin />} />
-                    <Route path='manager-cinema' element={<CinemaAdmin />} />
-                    <Route path='manager-ticket' element={<TicketAdmin />} />
-                    <Route path='manager-promotion' element={<PromtionAdmin />} />
-                    <Route path='manager-voucher' element={<VoucherAdmin />} />
-                    <Route path='manager-account' element={<AccountAdmin />} />
-                    <Route path='manager-movieType' element={<MovieTypeAdmin />} />
+                    <Route index element={
+                        <AdminRoute>
+                            <DashBoard />
+                        </AdminRoute>
+                    } />
+                    <Route path='manager-movie' element={
+                        <AdminRoute>
+                            <MovieAdmin />
+                        </AdminRoute>
+                    } />
+                    <Route path='manager-cinema' element={
+                        <AdminRoute>
+                            <CinemaAdmin />
+                        </AdminRoute>
+                    } />
+                    <Route path='manager-ticket' element={
+                        <AdminRoute>
+                            <TicketAdmin />
+                        </AdminRoute>
+                    } />
+                    <Route path='manager-promotion' element={
+                        <AdminRoute>
+                            <PromtionAdmin />
+                        </AdminRoute>
+                    } />
+                    <Route path='manager-voucher' element={
+                        <AdminRoute>
+                            <VoucherAdmin />
+                        </AdminRoute>
+                    } />
+                    <Route path='manager-account' element={
+                        <AdminRoute>
+                            <AccountAdmin />
+                        </AdminRoute>
+                    } />
+                    <Route path='manager-movieType' element={
+                        <AdminRoute>
+                            <MovieTypeAdmin />
+                        </AdminRoute>
+                    } />
+                    <Route path='manager-seatStatus' element={
+                        <AdminRoute>
+                            <SeatStatusAdmin />
+                        </AdminRoute>
+                    } />
+                    <Route path='manager-seatType' element={
+                        <AdminRoute>
+                            <SeatTypeAdmin />
+                        </AdminRoute>
+                    } />
+
+                    <Route path='bill' element={<MovieTypeAdmin />} />
+                    <Route path='counter-sale' element={<MovieTypeAdmin />} />
                 </Route>
 
 

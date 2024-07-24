@@ -21,7 +21,7 @@ const MovieTypeAdmin = () => {
 
     const [currentPage, setCurrentPage] = useState(0)
 
-    const pageSize = 5;
+    const pageSize = 8;
 
     const token = getCookie('cookie')
 
@@ -39,7 +39,6 @@ const MovieTypeAdmin = () => {
         setShowModalUpdateMovieType(true)
         setDataUpdate(movieUpdate)
     }
-    console.log(dataUpdate);
 
     const handleClickDelete = (movieDelete) => {
         setShowModalDeleteMovieType(true)

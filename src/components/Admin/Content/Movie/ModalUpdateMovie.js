@@ -1,10 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Select from 'react-select';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { RiAddBoxFill } from "react-icons/ri";
+import { getCookie } from '../../../Auth/CookieManager';
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { FaPenSquare } from "react-icons/fa";
+import { toast } from 'react-toastify';
+import _, { update } from 'lodash'
+import { createMovie, updateMovie } from '../../../../services/MovieService';
+import { getAllMovieType } from '../../../../services/MovieTypeService';
 
-const ModalMovie = (props) => {
-    const { show, setShow } = props;
+const ModalUpdateMovie = (props) => {
+    const { show,
+        setShow,
+        getListMoviePaginate,
+        getListMovieIsShowingPaginate,
+        getListUpComingMoviePaginate,
+        tabMovie,
+        setTabMovie,
+        setCurrentPage,
+        currentPage,
+        dataUpdate,
+        setDataUpdate } = props;
 
     const handleClose = () => {
         setShow(false)
@@ -15,6 +33,9 @@ const ModalMovie = (props) => {
         setDirector('')
         setPerformer('')
         setDescription('')
+        setSelectedMovieType('')
+        setPreviewImage('')
+        setImage('')
 
         setErrorName('')
         setErrorTime('')
@@ -23,6 +44,10 @@ const ModalMovie = (props) => {
         setErrorDirector('')
         setErrorPerformer('')
         setErrorDescription('')
+        setErrorSelectedMovieType('')
+        setErrorImage('')
+
+        setDataUpdate({})
     }
     const handleShow = () => setShow(true);
 
@@ -33,6 +58,12 @@ const ModalMovie = (props) => {
     const [director, setDirector] = useState('')
     const [performer, setPerformer] = useState('')
     const [description, setDescription] = useState('')
+    const [movieTypeId, setMovieTypeId] = useState('')
+    const [image, setImage] = useState('')
+    const [previewImage, setPreviewImage] = useState('')
+
+    const [selectedMovieType, setSelectedMovieType] = useState({})
+    const [listMovieType, setListMovieType] = useState([])
 
     const [errorName, setErrorName] = useState('')
     const [errorTime, setErrorTime] = useState('')
@@ -41,6 +72,10 @@ const ModalMovie = (props) => {
     const [errorDirector, setErrorDirector] = useState('')
     const [errorPerformer, setErrorPerformer] = useState('')
     const [errorDescription, setErrorDescription] = useState('')
+    const [errorSelectedMovieType, setErrorSelectedMovieType] = useState('')
+    const [errorImage, setErrorImage] = useState('')
+
+    const token = getCookie('cookie')
 
     const checkName = () => {
         if (name === '') {
@@ -109,7 +144,78 @@ const ModalMovie = (props) => {
         return true
     }
 
-    const handleSubmitCreate = () => {
+    const checkSelectedMovieType = () => {
+        if (_.isEmpty(selectedMovieType)) {
+            setErrorSelectedMovieType('Chưa chọn thể loại phim')
+            return false
+        }
+        setErrorSelectedMovieType('')
+        return true
+    }
+
+    const checkImage = () => {
+        if (image.size > 1024 * 1024) {
+            setErrorImage('Vui lòng chọn ảnh dưới 1MB')
+            return false
+        }
+        setErrorImage('')
+        return true
+    }
+
+    const getListMovieType = async () => {
+        let response = await getAllMovieType(token)
+        if (!_.isEmpty(response)) {
+            let listSelectedMovieType = response.map(item => {
+                return {
+                    value: item.id,
+                    label: item.name
+                }
+            })
+            setListMovieType(listSelectedMovieType)
+        }
+    }
+
+    const handleUploadImage = (event) => {
+        if (event.target && event.target.files && event.target.files[0]) {
+            setPreviewImage(URL.createObjectURL(event.target.files[0]))
+            setImage(event.target.files[0])
+        }
+    }
+
+    const formatDate = (isoDate) => {
+        const date = new Date(isoDate);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Thêm số 0 vào trước nếu cần
+        const day = String(date.getDate()).padStart(2, '0'); // Thêm số 0 vào trước nếu cần
+
+        return `${year}-${month}-${day}`;
+    }
+
+
+    useEffect(() => {
+        getListMovieType()
+    }, [])
+
+    useEffect(() => {
+        if (!_.isEmpty(dataUpdate)) {
+            setName(dataUpdate.name)
+            setTime(dataUpdate.time)
+            setPremiereDate(formatDate(dataUpdate.premiereDate))
+            setLanguage(dataUpdate.language)
+            setDirector(dataUpdate.director)
+            setPerformer(dataUpdate.performer)
+            setDescription(dataUpdate.description)
+            setSelectedMovieType(
+                {
+                    value: dataUpdate.movieType.id,
+                    label: dataUpdate.movieType.name
+                }
+            )
+
+        }
+    }, [dataUpdate])
+
+    const handleSubmitUpdate = async () => {
         let isName = checkName()
         let isTime = checkTime()
         let isPremiereDate = checkPremiereDate()
@@ -117,8 +223,29 @@ const ModalMovie = (props) => {
         let isDirector = checkDirector()
         let isPerformer = checkPerformer()
         let isDescription = checkDescription()
-        if (isName && isTime && isPremiereDate && isLanguage && isDirector && isPerformer && isDescription) {
-            // call api
+        let isSelectedMovieType = checkSelectedMovieType()
+        let isImage = checkImage()
+        if (isName && isTime && isPremiereDate && isLanguage && isDirector && isPerformer && isDescription && isSelectedMovieType && isImage) {
+            let response = await updateMovie(dataUpdate.id, name, time, premiereDate, description, director, language, performer, +selectedMovieType.value, image, token)
+            if (response.statusCode === 0) {
+                if (tabMovie === 'all') {
+                    setCurrentPage(currentPage)
+                    await getListMoviePaginate(currentPage)
+                } else if (tabMovie === 'isShowing') {
+                    await getListMoviePaginate(0)
+                    setCurrentPage(currentPage)
+                    await getListMovieIsShowingPaginate(currentPage)
+                } else {
+                    await getListMoviePaginate(0)
+                    setCurrentPage(currentPage)
+                    await getListUpComingMoviePaginate(currentPage)
+                }
+                toast.success(response.message)
+                handleClose()
+            } else {
+                toast.error(response.message)
+                handleClose()
+            }
         }
     }
 
@@ -132,7 +259,7 @@ const ModalMovie = (props) => {
                 size='xl'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>THÊM PHIM MỚI</Modal.Title>
+                    <Modal.Title>CẬP NHẬT PHIM</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form>
@@ -180,6 +307,7 @@ const ModalMovie = (props) => {
                                 <input type="date" className="form-control"
                                     value={premiereDate}
                                     onChange={(event) => setPremiereDate(event.target.value)}
+                                    defaultValue={formatDate(dataUpdate.premiereDate)}
                                 />
                             </div>
                             <div className="mb-3 " style={{ width: '48%' }}>
@@ -245,11 +373,61 @@ const ModalMovie = (props) => {
                             </div>
                         </div>
 
+                        <div className='d-flex w-100 justify-content-between'>
+                            <div style={{ width: '48%' }}>
+                                <div className="mb-3 " >
+                                    <div className='d-flex justify-content-between'>
+                                        <div>
+                                            <label className="form-label fw-bold">Thể loại</label>
+                                        </div>
+                                        <div>
+                                            <span style={{ color: 'red' }}>{errorSelectedMovieType}</span>
+                                        </div>
+                                    </div>
+                                    <Select
+                                        value={selectedMovieType}
+                                        onChange={setSelectedMovieType}
+                                        options={listMovieType}
+                                        placeholder='Chọn thể loại phim'
+                                    />
+                                </div>
+
+                            </div>
+                            <div className="mb-3 " style={{ width: '48%' }}>
+                                <div className='d-flex justify-content-between'>
+                                    <div>
+                                        <label className="form-label fw-bold">Ảnh</label>
+                                    </div>
+                                    <div>
+                                        <span style={{ color: 'red' }}>{errorImage}</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    {previewImage ?
+                                        <label className='label-upload' htmlFor='labelUpload'>
+                                            <img src={previewImage} />
+                                        </label>
+                                        :
+                                        <label className='label-upload' htmlFor='labelUpload'>
+                                            <img src={`http://localhost:8080/image/${dataUpdate.id}`} />
+                                        </label>
+                                    }
+
+                                    <input
+                                        hidden
+                                        id='labelUpload'
+                                        type="file"
+                                        onChange={(event) => handleUploadImage(event)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" className='btn-info' onClick={() => handleSubmitCreate()}>
-                        <RiAddBoxFill style={{ fontSize: '25px', margin: '0 15px' }} />
+                    <Button variant="primary" className='btn-info' onClick={() => handleSubmitUpdate()}>
+                        <FaPenSquare style={{ fontSize: '25px', margin: '0 15px' }} />
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -257,4 +435,4 @@ const ModalMovie = (props) => {
     );
 }
 
-export default ModalMovie;
+export default ModalUpdateMovie;

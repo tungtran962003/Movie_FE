@@ -12,4 +12,8 @@ const getPrincipal = (token) => {
     return axios.get('/principal', { headers: { "Authorization": `Bearer ${token}` } }, { token })
 }
 
-export { signup, login, getPrincipal }
+const logout = (token) => {
+    return axios.get('/logoutAccount', { headers: { "Authorization": `Bearer ${token}` } }, { token })
+}
+
+export { signup, login, getPrincipal, logout }

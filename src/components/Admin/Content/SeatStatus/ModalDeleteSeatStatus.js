@@ -4,10 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import { FaPenSquare } from "react-icons/fa";
 import _ from 'lodash'
-import { deleteMovieType } from '../../../../services/MovieTypeService';
 import 'react-toastify/dist/ReactToastify.css';
 import { MdDelete } from "react-icons/md";
 import { getCookie } from '../../../Auth/CookieManager';
+import { deleteSeatStatus } from '../../../../services/SeatStatusService';
 
 const ModalDeleteMovieType = (props) => {
     const { show, setShow, dataDelete, setDataDelete } = props;
@@ -29,10 +29,10 @@ const ModalDeleteMovieType = (props) => {
     }, [dataDelete])
 
     const handleSubmitDelete = async () => {
-        let response = await deleteMovieType(+dataDelete.id, token)
+        let response = await deleteSeatStatus(+dataDelete.id, token)
         if (response.statusCode === 0) {
             props.setCurrentPage(0)
-            props.getListMoiveTypePaginate(0)
+            props.getListSeatStatusPaginate(0)
             toast.success(response.message)
             handleClose()
         } else {
@@ -50,10 +50,10 @@ const ModalDeleteMovieType = (props) => {
                 backdrop='static'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>XOÁ THỂ LOẠI PHIM</Modal.Title>
+                    <Modal.Title>XOÁ TRẠNG THÁI GHẾ</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Bạn có muốn xoá thể loại phim <b>{dataDelete && dataDelete.name ? dataDelete.name : ''}</b>
+                    Bạn có muốn xoá trạng thái ghế <b>{dataDelete && dataDelete.name ? dataDelete.name : ''}</b>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" className='btn-info' onClick={() => handleSubmitDelete()}>

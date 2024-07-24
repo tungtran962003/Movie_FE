@@ -21,15 +21,15 @@
             font-weight: 600;
         }
     }
+}
 
-    .contact-footer {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        height: 150px;
+.contact-footer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
 
-        .content-contact-footer {
-            width: 65%;
-        }
+    .content-contact-footer {
+        width: 65%;
     }
 }

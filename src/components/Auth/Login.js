@@ -67,6 +67,7 @@ const Login = (props) => {
             console.log(response);
             if (response.statusCode === 0) {
                 setCookie('cookie', response.jwt)
+                toast.success('Đăng nhập thành công, Chào mừng bạn đến với TTT Cinema')
                 navigate('/')
                 return
             }

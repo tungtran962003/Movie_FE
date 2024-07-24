@@ -1,11 +1,19 @@
 .movie-container {
-
     .title-manager {
         font-size: 25px;
         text-transform: uppercase;
         font-weight: bold;
         text-align: center;
         margin: 15px 0;
+    }
+
+    .nav-item {
+        .nav-link {
+            &.active {
+                color: red;
+                background-color: rgb(0 241 255);
+            }
+        }
     }
 
     .content-manager {
@@ -50,6 +58,27 @@
                     background-color: rgb(37, 195, 203);
                 }
             }
+        }
+    }
+}
+
+.modal-body {
+    form {
+        .label-upload {
+            display: flex;
+            align-items: center;
+            color: #808487;
+            border: 1px dashed rgb(156, 154, 154);
+            height: 145px;
+            display: flex;
+            justify-content: center;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
         }
     }
 }

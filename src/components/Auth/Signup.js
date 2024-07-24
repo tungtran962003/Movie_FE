@@ -175,8 +175,6 @@ const Signup = (props) => {
             }
             toast.success(response.message)
             navigate("/login")
-            // } else {
-            //     event.preventDefault()
         }
     }
 

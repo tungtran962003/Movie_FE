@@ -4,12 +4,12 @@ import { MdDelete } from "react-icons/md";
 import { HiDotsVertical } from "react-icons/hi";
 import ReactPaginate from 'react-paginate';
 
-const TableMovie = (props) => {
+const TableUpComingMovie = (props) => {
 
     const { listMovie, pageCount } = props
 
     const handlePageClick = (event) => {
-        props.getListMoviePaginate(+event.selected)
+        props.getPageUpComingMovie(+event.selected)
         props.setCurrentPage(+event.selected)
     };
 
@@ -98,4 +98,4 @@ const TableMovie = (props) => {
     )
 }
 
-export default TableMovie
+export default TableUpComingMovie

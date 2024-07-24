@@ -1,58 +1,40 @@
-import moment from 'moment';
-import { MdAutoFixHigh } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
 import { HiDotsVertical } from "react-icons/hi";
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
+import { useEffect, useState } from 'react';
 
-const TableMovie = (props) => {
 
-    const { listMovie, pageCount } = props
+const TableSeatStatus = (props) => {
+
+    const { listSeatStatus, pageCount } = props
 
     const handlePageClick = (event) => {
-        props.getListMoviePaginate(+event.selected)
+        props.getListSeatStatusPaginate(+event.selected)
         props.setCurrentPage(+event.selected)
+        console.log(`User requested page number ${event.selected}`);
     };
 
-    const convertGMTtoVietnamese = (dateTime) => {
-        const vietnameseDateTime = moment(dateTime).utcOffset(7).format('DD/MM/YYYY');
-        return vietnameseDateTime;
-    }
 
     return (
-        <div className="table-movie">
+        <div className="table-seatStatus">
             <table className="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th className="bg-info" scope="col">ID</th>
                         <th className="bg-info" scope="col">Tên</th>
-                        <th className="bg-info" scope="col">Thời lượng</th>
-                        <th className="bg-info" scope="col">Ngày khởi chiếu</th>
-                        <th className="bg-info" scope="col">Mô tả</th>
-                        <th className="bg-info" scope="col">Đạo diễn</th>
-                        <th className="bg-info" scope="col">Ngôn ngữ</th>
-                        <th className="bg-info" scope="col">Diễn viên</th>
-                        <th className="bg-info" scope="col">Thể loại</th>
                         <th className="bg-info" scope="col">Chức năng</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {listMovie && listMovie.length > 0 &&
-                        listMovie.map((item, index) => {
+                    {listSeatStatus && listSeatStatus.length > 0 &&
+                        listSeatStatus.map((item, index) => {
                             return (
                                 <tr key={item.id}>
                                     <td>{item.id}</td>
                                     <td>{item.name}</td>
-                                    <td>{item.time + ` phút`}</td>
-                                    <td>{convertGMTtoVietnamese(item.premiereDate)}</td>
-                                    <td>{item.description}</td>
-                                    <td>{item.director}</td>
-                                    <td>{item.language}</td>
-                                    <td>{item.performer}</td>
-                                    <td>{item.movieType.name}</td>
                                     <td className=''>
                                         <div className="dropdown">
                                             <button className="btn btn-info" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <HiDotsVertical />
+                                                <HiDotsVertical className="d-flex justify-content-center align-items-center" />
                                             </button>
                                             <ul className="dropdown-menu dropdown-menu-dark">
                                                 <li style={{ cursor: 'pointer' }}><a className="dropdown-item" onClick={() => props.handleClickUpdate(item)}>Sửa</a></li>
@@ -64,7 +46,7 @@ const TableMovie = (props) => {
                             )
                         })
                     }
-                    {listMovie && listMovie?.length === 0 &&
+                    {listSeatStatus && listSeatStatus.length === 0 &&
                         <tr>
                             <td colSpan={'3'}>Không có dữ liệu</td>
                         </tr>
@@ -98,4 +80,4 @@ const TableMovie = (props) => {
     )
 }
 
-export default TableMovie
+export default TableSeatStatus

@@ -1,0 +1,58 @@
+.scrollbar-container {
+    height: calc(100vh - 60px);
+
+    .seatType-container {
+        .title-manager {
+            font-size: 25px;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .content-manager {
+            .border-btn {
+                text-align: center;
+                margin-bottom: 20px;
+
+                .btn-add {
+                    width: 85px;
+                    height: 40px;
+                    font-size: 15px;
+                    background-color: rgb(0 241 255);
+                    border-radius: 8px;
+                    border: none;
+                    font-weight: 600;
+                    text-transform: uppercase;
+
+                    &:hover {
+                        color: black;
+                        background-color: rgb(37, 195, 203);
+                    }
+                }
+            }
+        }
+
+        .table-seatType {
+            padding: 0 20px;
+
+            table {
+                .btn-funtion {
+                    width: 85px;
+                    height: 40px;
+                    font-size: 15px;
+                    background-color: rgb(0 241 255);
+                    border-radius: 8px;
+                    border: none;
+                    font-weight: 600;
+                    text-transform: uppercase;
+
+                    &:hover {
+                        color: black;
+                        background-color: rgb(37, 195, 203);
+                    }
+                }
+            }
+        }
+    }
+}

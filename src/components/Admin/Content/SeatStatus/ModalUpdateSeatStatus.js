@@ -1,18 +1,22 @@
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { RiAddBoxFill } from "react-icons/ri";
-import { createMovieType } from '../../../../services/MovieTypeService';
 import { toast } from 'react-toastify';
+import { FaPenSquare } from "react-icons/fa";
+import _ from 'lodash'
+import { updateSeatStatus } from '../../../../services/SeatStatusService';
+import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from '../../../Auth/CookieManager';
 
-const ModalCreateMovieType = (props) => {
-    const { show, setShow, getListMoiveTypePaginate } = props;
+const ModalUpdateSeatStatus = (props) => {
+    const { show, setShow, dataUpdate, setDataUpdate } = props;
 
     const handleClose = () => {
         setShow(false)
         setName('')
+
         setErrorName('')
+        setDataUpdate({})
     }
     const handleShow = () => setShow(true);
 
@@ -31,19 +35,27 @@ const ModalCreateMovieType = (props) => {
         return true
     }
 
-    const handleSubmitCreate = async () => {
-        let isName = checkName()
+
+    useEffect(() => {
+        if (!_.isEmpty(dataUpdate)) {
+            setName(dataUpdate.name)
+        }
+    }, [dataUpdate])
+
+    const handleSubmitUpdate = async () => {
+        let isName = checkName(name)
         if (isName) {
-            let response = await createMovieType(name, token)
+            let response = await updateSeatStatus(dataUpdate.id, name, token)
             if (response.statusCode === 0) {
-                await getListMoiveTypePaginate(0)
-                props.setCurrentPage(0)
-                toast.success(response.message)
+                props.setCurrentPage(props.currentPage)
+                toast.success(response.message);
                 handleClose()
+                await props.getListSeatStatusPaginate(props.currentPage)
             } else {
-                toast.error(response.message)
+                toast.error(response.message);
                 handleClose()
             }
+
         }
     }
 
@@ -55,7 +67,7 @@ const ModalCreateMovieType = (props) => {
                 backdrop='static'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>THÊM THỂ LOẠI PHIM</Modal.Title>
+                    <Modal.Title>CẬP NHẬT TRẠNG THÁI GHÉ</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form>
@@ -78,8 +90,8 @@ const ModalCreateMovieType = (props) => {
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" className='btn-info' onClick={() => handleSubmitCreate()}>
-                        <RiAddBoxFill style={{ fontSize: '25px', margin: '0 15px' }} />
+                    <Button variant="primary" className='btn-info' onClick={() => handleSubmitUpdate()}>
+                        <FaPenSquare style={{ fontSize: '23px', margin: '0 15px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} />
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -87,4 +99,4 @@ const ModalCreateMovieType = (props) => {
     );
 }
 
-export default ModalCreateMovieType;
+export default ModalUpdateSeatStatus;

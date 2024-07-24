@@ -7,7 +7,7 @@ import { RiMovie2Fill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
 import { setCookie, getCookie, removeCookie } from '../../Auth/CookieManager';
 import { useEffect, useState } from 'react';
-import { getPrincipal } from '../../../services/AuthService';
+import { getPrincipal, logout } from '../../../services/AuthService';
 import { FaUser } from "react-icons/fa";
 import './Header.scss'
 
@@ -22,7 +22,7 @@ const Header = (props) => {
     const token = getCookie('cookie')
     useEffect(() => {
         getAccountByToken()
-    }, [token])
+    }, [])
 
     const getAccountByToken = async () => {
         if (token === null || token === undefined) {
@@ -30,6 +30,16 @@ const Header = (props) => {
         }
         let response = await getPrincipal(token)
         setAccountByToken(response)
+    }
+
+    const handleLogout = async () => {
+        if (token === null || token === undefined) {
+            return
+        }
+        let response = await logout(token)
+        console.log(response);
+        navigate('/login')
+        removeCookie('cookie')
     }
 
     return (
@@ -65,7 +75,7 @@ const Header = (props) => {
                                 <NavDropdown.Item href="">
                                     Thông tin cá nhân
                                 </NavDropdown.Item>
-                                <NavDropdown.Item href="">Đăng xuất</NavDropdown.Item>
+                                <NavDropdown.Item onClick={() => handleLogout()}>Đăng xuất</NavDropdown.Item>
                             </NavDropdown>
                         </div>
                     </div>
