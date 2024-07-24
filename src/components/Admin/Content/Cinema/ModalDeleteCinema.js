@@ -9,7 +9,7 @@ import { MdDelete } from "react-icons/md";
 import { getCookie } from '../../../Auth/CookieManager';
 import { deleteCinema } from '../../../../services/CinemaService';
 
-const ModalDeleteMovieType = (props) => {
+const ModalDeleteCinema = (props) => {
     const { show, setShow, dataDelete, setDataDelete } = props;
 
     const [name, setName] = useState('')
@@ -65,4 +65,4 @@ const ModalDeleteMovieType = (props) => {
     );
 }
 
-export default ModalDeleteMovieType;
+export default ModalDeleteCinema;

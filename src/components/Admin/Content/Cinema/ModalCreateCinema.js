@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { getCookie } from '../../../Auth/CookieManager';
 import { createCinema } from '../../../../services/CinemaService';
 
-const ModalCreateSeatStatus = (props) => {
+const ModalCreateCinema = (props) => {
     const { show, setShow, getListCinemaPaginate } = props;
 
     const handleClose = () => {
@@ -151,4 +151,4 @@ const ModalCreateSeatStatus = (props) => {
     );
 }
 
-export default ModalCreateSeatStatus;
+export default ModalCreateCinema;

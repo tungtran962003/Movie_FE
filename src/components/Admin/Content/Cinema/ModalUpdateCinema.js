@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from '../../../Auth/CookieManager';
 import { updateCinema } from '../../../../services/CinemaService';
 
-const ModalUpdateSeatStatus = (props) => {
+const ModalUpdateCinema = (props) => {
     const { show, setShow, dataUpdate, setDataUpdate } = props;
 
     const handleClose = () => {
@@ -165,4 +165,4 @@ const ModalUpdateSeatStatus = (props) => {
     );
 }
 
-export default ModalUpdateSeatStatus;
+export default ModalUpdateCinema;
