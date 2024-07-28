@@ -353,7 +353,6 @@ const ModalCreateMovie = (props) => {
                                         placeholder='Chọn thể loại phim'
                                     />
                                 </div>
-
                             </div>
                             <div className="mb-3 " style={{ width: '48%' }}>
                                 <div className='d-flex justify-content-between'>

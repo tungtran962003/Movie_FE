@@ -1,7 +1,7 @@
 import axios from "../utils/axiosCustomize"
 
-const getAllSeatStatus = () => {
-    return axios.get('/api/seatStatus/all')
+const getAllSeatStatus = (token) => {
+    return axios.get('/api/seatStatus/all', { headers: { "Authorization": `Bearer ${token}` } })
 }
 
 const getPageSeatStatus = (page, pageSize, token) => {

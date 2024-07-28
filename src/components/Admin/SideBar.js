@@ -19,7 +19,10 @@ import { RiDiscountPercentFill } from "react-icons/ri";
 import { MdDiscount } from "react-icons/md";
 import { MdSpaceDashboard } from "react-icons/md";
 import { TbBrandTypescript } from "react-icons/tb";
+import { PiArmchairFill } from "react-icons/pi";
+import { GrSchedulePlay } from "react-icons/gr";
 import { FaUser } from "react-icons/fa";
+import { SiGoogleclassroom } from "react-icons/si";
 import { GrStatusInfo } from "react-icons/gr";
 import { FaCartShopping } from "react-icons/fa6";
 import { VscOutput } from "react-icons/vsc";
@@ -113,10 +116,28 @@ const SideBar = (props) => {
                                     <Link to='/admin/manager-cinema' />
                                 </MenuItem>
                                 <MenuItem
+                                    icon={<SiGoogleclassroom />} style={{ fontSize: '18px' }}
+                                >
+                                    Phòng
+                                    <Link to='/admin/manager-room' />
+                                </MenuItem>
+                                <MenuItem
                                     icon={<FaTicketAlt />} style={{ fontSize: '18px' }}
                                 >
                                     Vé
                                     <Link to='/admin/manager-ticket' />
+                                </MenuItem>
+                                <MenuItem
+                                    icon={<GrSchedulePlay />} style={{ fontSize: '18px' }}
+                                >
+                                    Lịch chiếu
+                                    <Link to='/admin/manager-schedule' />
+                                </MenuItem>
+                                <MenuItem
+                                    icon={<PiArmchairFill />} style={{ fontSize: '18px' }}
+                                >
+                                    Ghế
+                                    <Link to='/admin/manager-seat' />
                                 </MenuItem>
                                 <MenuItem
                                     icon={<GrStatusInfo />} style={{ fontSize: '18px' }}

@@ -28,6 +28,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminRoute from './routes/AdminRoute';
 import Forbidden from './components/Common/Error/Forbidden';
 import StaffRoute from './routes/StaffRoute';
+import RoomAdmin from './components/Admin/Content/Room/RoomAdmin';
+import ScheduleAdmin from './components/Admin/Content/Schedule/ScheduleAdmin';
+import SeatAdmin from './components/Admin/Content/Seat/SeatAdmin';
 
 const SetupRouter = () => {
     return (
@@ -59,9 +62,19 @@ const SetupRouter = () => {
                             <CinemaAdmin />
                         </AdminRoute>
                     } />
+                    <Route path='manager-cinema/:id/room' element={
+                        <AdminRoute>
+                            <RoomAdmin />
+                        </AdminRoute>
+                    } />
                     <Route path='manager-ticket' element={
                         <AdminRoute>
                             <TicketAdmin />
+                        </AdminRoute>
+                    } />
+                    <Route path='manager-schedule' element={
+                        <AdminRoute>
+                            <ScheduleAdmin />
                         </AdminRoute>
                     } />
                     <Route path='manager-promotion' element={
@@ -84,6 +97,11 @@ const SetupRouter = () => {
                             <MovieTypeAdmin />
                         </AdminRoute>
                     } />
+                    <Route path='manager-seat' element={
+                        <AdminRoute>
+                            <SeatAdmin />
+                        </AdminRoute>
+                    } />
                     <Route path='manager-seatStatus' element={
                         <AdminRoute>
                             <SeatStatusAdmin />
@@ -94,6 +112,11 @@ const SetupRouter = () => {
                             <SeatTypeAdmin />
                         </AdminRoute>
                     } />
+                    {/* <Route path='manager-room' element={
+                        <AdminRoute>
+                            <RoomAdmin />
+                        </AdminRoute>
+                    } /> */}
 
                     <Route path='bill' element={<MovieTypeAdmin />} />
                     <Route path='counter-sale' element={<MovieTypeAdmin />} />

@@ -7,21 +7,10 @@ import _ from 'lodash'
 import 'react-toastify/dist/ReactToastify.css';
 import { MdDelete } from "react-icons/md";
 import { getCookie } from '../../../Auth/CookieManager';
-import { deleteCinema } from '../../../../services/CinemaService';
-import { deleteMovie } from '../../../../services/MovieService';
+import { deleteRoom } from '../../../../services/RoomService';
 
-const ModalDeleteMovieType = (props) => {
-    const { show,
-        setShow,
-        getListMoviePaginate,
-        getListMovieIsShowingPaginate,
-        getListUpComingMoviePaginate,
-        tabMovie,
-        setTabMovie,
-        setCurrentPage,
-        currentPage,
-        dataDelete,
-        setDataDelete } = props;
+const ModalDeleteRoom = (props) => {
+    const { show, setShow, dataDelete, setDataDelete } = props;
 
     const [name, setName] = useState('')
 
@@ -40,20 +29,10 @@ const ModalDeleteMovieType = (props) => {
     }, [dataDelete])
 
     const handleSubmitDelete = async () => {
-        let response = await deleteMovie(+dataDelete.id, token)
+        let response = await deleteRoom(+dataDelete.id, token)
         if (response.statusCode === 0) {
-            if (tabMovie === 'all') {
-                setCurrentPage(0)
-                await getListMoviePaginate(0)
-            } else if (tabMovie === 'isShowing') {
-                await getListMoviePaginate(0)
-                setCurrentPage(0)
-                await getListMovieIsShowingPaginate(0)
-            } else {
-                await getListMoviePaginate(0)
-                setCurrentPage(0)
-                await getListUpComingMoviePaginate(0)
-            }
+            props.setCurrentPage(0)
+            props.getListRoomPaginate(0)
             toast.success(response.message)
             handleClose()
         } else {
@@ -71,10 +50,10 @@ const ModalDeleteMovieType = (props) => {
                 backdrop='static'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>XOÁ PHIM</Modal.Title>
+                    <Modal.Title>XOÁ PHÒNG</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Bạn có muốn xoá phim <b>{dataDelete && dataDelete.name ? dataDelete.name : ''}</b>
+                    Bạn có muốn xoá phòng <b>{dataDelete && dataDelete.name ? dataDelete.name : ''}</b>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" className='btn-info' onClick={() => handleSubmitDelete()}>
@@ -86,4 +65,4 @@ const ModalDeleteMovieType = (props) => {
     );
 }
 
-export default ModalDeleteMovieType;
+export default ModalDeleteRoom;
