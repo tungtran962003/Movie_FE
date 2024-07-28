@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import './CinemaAdmin.scss'
 import TableCinema from './TableCinema'
-import { getPageCinema } from '../../../../services/CinemaService'
+import { getPageCinema, getPageRoomByCinema } from '../../../../services/CinemaService'
 import { useEffect } from 'react'
 import { RiAddBoxFill } from "react-icons/ri";
 import ModalCreateCinema from './ModalCreateCinema'
 import ModalUpdateCinema from './ModalUpdateCinema'
 import ModalDeleteCinema from './ModalDeleteCinema'
 import { getCookie } from '../../../Auth/CookieManager'
+import { useNavigate } from 'react-router-dom'
 
 const CinemaAdmin = () => {
 
@@ -24,6 +25,8 @@ const CinemaAdmin = () => {
     const pageSize = 8;
 
     const token = getCookie('cookie')
+
+    const navigate = useNavigate()
 
     const getListCinemaPaginate = async (page) => {
         let response = await getPageCinema(page, pageSize, token)

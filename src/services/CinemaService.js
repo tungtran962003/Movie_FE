@@ -1,7 +1,7 @@
 import axios from "../utils/axiosCustomize"
 
-const getAllCinema = () => {
-    return axios.get('/api/cinema/all')
+const getAllCinema = (token) => {
+    return axios.get('/api/cinema/all', { headers: { "Authorization": `Bearer ${token}` } })
 }
 
 const getPageCinema = (page, pageSize, token) => {
@@ -20,4 +20,11 @@ const deleteCinema = (idDelete, token) => {
     return axios.delete(`/api/cinema/delete/${idDelete}`, { headers: { "Authorization": `Bearer ${token}` } })
 }
 
-export { getAllCinema, getPageCinema, createCinema, updateCinema, deleteCinema }
+const getPageRoomByCinemaId = (cinemaId, page, pageSize, token) => {
+    return axios.get(`/api/cinema/${cinemaId}/room?page=${page}&pageSize=${pageSize}`, { headers: { "Authorization": `Bearer ${token}` } })
+}
+
+export {
+    getAllCinema, getPageCinema, createCinema, updateCinema, deleteCinema,
+    getPageRoomByCinemaId
+}

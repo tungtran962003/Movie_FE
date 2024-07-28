@@ -1,47 +1,41 @@
 import { HiDotsVertical } from "react-icons/hi";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
 
+const TableRoom = (props) => {
 
-const TableCinema = (props) => {
-
-    const { listCinema, pageCount } = props
-
-    const navigate = useNavigate()
+    const { listRoom, pageCount } = props
 
     const handlePageClick = (event) => {
-        props.getListCinemaPaginate(+event.selected)
+        props.getListRoomPaginate(+event.selected)
         props.setCurrentPage(+event.selected)
     };
 
     return (
-        <div className="table-cinema">
+        <div className="table-room">
             <table className="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th className="bg-info" scope="col">Tên</th>
-                        <th className="bg-info" scope="col">Địa chỉ</th>
-                        <th className="bg-info" scope="col">Hotline</th>
+                        <th className="bg-info" scope="col">Sức chứa</th>
+                        <th className="bg-info" scope="col">Rạp</th>
                         <th className="bg-info" scope="col">Chức năng</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {listCinema && listCinema.length > 0 &&
-                        listCinema.map((item, index) => {
+                    {listRoom && listRoom.length > 0 &&
+                        listRoom.map((item, index) => {
                             return (
                                 <tr key={item.id}>
                                     <td>{item.name}</td>
-                                    <td>{item.address}</td>
-                                    <td>{item.hotline}</td>
+                                    <td>{item.capacity}</td>
+                                    <td>{item.cinema.name}</td>
                                     <td className=''>
                                         <div className="dropdown">
                                             <button className="btn btn-info" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <HiDotsVertical className="d-flex justify-content-center align-items-center" />
                                             </button>
                                             <ul className="dropdown-menu dropdown-menu-dark">
-                                                <li style={{ cursor: 'pointer' }}><a className="dropdown-item"
-                                                    onClick={() => navigate(`/admin/manager-cinema/${item.id}/room`, { state: { cinema: item } })}>Xem phòng</a></li>
                                                 <li style={{ cursor: 'pointer' }}><a className="dropdown-item" onClick={() => props.handleClickUpdate(item)}>Sửa</a></li>
                                                 <li style={{ cursor: 'pointer' }}><a className="dropdown-item" onClick={() => props.handleClickDelete(item)}>Xoá</a></li>
                                             </ul>
@@ -51,9 +45,9 @@ const TableCinema = (props) => {
                             )
                         })
                     }
-                    {listCinema && listCinema.length === 0 &&
+                    {listRoom && listRoom.length === 0 &&
                         <tr>
-                            <td colSpan={'3'}>Không có dữ liệu</td>
+                            <td colSpan={'5'}>Không có dữ liệu</td>
                         </tr>
                     }
                 </tbody>
@@ -85,4 +79,4 @@ const TableCinema = (props) => {
     )
 }
 
-export default TableCinema
+export default TableRoom
