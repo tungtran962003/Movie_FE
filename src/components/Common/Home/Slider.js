@@ -1,12 +1,16 @@
 import Slider1 from '../../../assets/slider1.jpg'
 import Slider2 from '../../../assets/slider2.jpg'
 import Slider3 from '../../../assets/slider3.jpg'
+import Slider4 from '../../../assets/slider4.jpg'
 
 const Slider = () => {
   return (
     <>
       <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-inner">
+          <div className="carousel-item">
+            <img src={Slider4} className="d-block w-100" alt="..." />
+          </div>
           <div className="carousel-item active">
             <img src={Slider1} className="d-block w-100" alt="..." />
           </div>
