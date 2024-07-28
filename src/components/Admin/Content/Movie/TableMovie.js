@@ -66,7 +66,7 @@ const TableMovie = (props) => {
                     }
                     {listMovie && listMovie?.length === 0 &&
                         <tr>
-                            <td colSpan={'3'}>Không có dữ liệu</td>
+                            <td colSpan={'10'}>Không có dữ liệu</td>
                         </tr>
                     }
                 </tbody>
