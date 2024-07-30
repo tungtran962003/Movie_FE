@@ -5,6 +5,7 @@ const getAllRoom = (token) => {
 }
 
 const getPageRoom = (page, pageSize, cinemaId, token) => {
+    debugger
     return axios.get(`/api/room/page?cinemaId=${cinemaId}&page=${page}&pageSize=${pageSize}`, { headers: { "Authorization": `Bearer ${token}` } })
 }
 

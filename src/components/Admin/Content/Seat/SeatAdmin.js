@@ -8,10 +8,22 @@ import ModalCreateSeat from './ModalCreateSeat'
 import ModalUpdateSeat from './ModalUpdateSeat'
 import ModalDeleteSeat from './ModalDeleteSeat'
 import { getCookie } from '../../../Auth/CookieManager'
+import { useLocation, useParams } from 'react-router-dom'
+import ListSeat from './ListSeat'
 
 const SeatAdmin = () => {
 
-    const [listSeat, setListSeat] = useState([])
+    // const [listSeat, setListSeat] = useState(
+    //     [
+    //         { id: 1, value: 'Tung' },
+    //         { id: 2, value: 'Van' },
+    //         { id: 3, value: 'Toan' },
+    //         { id: 4, value: 'Duong' },
+    //         { id: 5, value: 'Link' },
+    //     ]
+    // )
+    // const [listSeat, setListSeat] = useState([])
+
 
     const [dataUpdate, setDataUpdate] = useState({})
 
@@ -23,13 +35,23 @@ const SeatAdmin = () => {
 
     const pageSize = 8;
 
+    const length = 100;
+
     const token = getCookie('cookie')
 
-    const getListSeatPaginate = async (page) => {
-        let response = await getPageSeat(page, pageSize, token)
-        setListSeat(response.content)
-        setPageCount(response.totalPages)
-    }
+    const params = useParams()
+
+    const location = useLocation()
+
+    const room = location?.state?.room
+
+    console.log(location);
+
+    // const getListSeatPaginate = async (page) => {
+    //     let response = await getPageSeat(page, pageSize, token)
+    //     setListSeat(response.content)
+    //     setPageCount(response.totalPages)
+    // }
 
     const [showModalCreateSeat, setShowModalCreateSeat] = useState(false)
     const [showModalUpdateSeat, setShowModalUpdateSeat] = useState(false)
@@ -45,15 +67,15 @@ const SeatAdmin = () => {
         setDataDelete(seatDelete)
     }
 
-    useEffect(() => {
-        getListSeatPaginate(0)
-    }, [])
+    // useEffect(() => {
+    //     getListSeatPaginate(0)
+    // }, [])
 
     return (
         <>
             <div className="seat-container">
                 <div className="title-manager">
-                    Quản lý ghế
+                    Ghế trong phòng {room?.name}
                 </div>
                 <div className="content-manager">
                     <div className="border-btn">
@@ -65,7 +87,7 @@ const SeatAdmin = () => {
                         </button>
                     </div>
                 </div>
-                <div>
+                {/* <div>
                     <TableSeat
                         listSeat={listSeat}
                         handleClickUpdate={handleClickUpdate}
@@ -75,13 +97,20 @@ const SeatAdmin = () => {
                         currentPage={currentPage}
                         setCurrentPage={setCurrentPage}
                     />
+                </div> */}
+                <div className='display-container'>
+                    Display
                 </div>
+                <ListSeat
+                // listSeat={listSeat}
+                // setListSeat={setListSeat}
+                />
             </div>
 
             <ModalCreateSeat
                 show={showModalCreateSeat}
                 setShow={setShowModalCreateSeat}
-                getListSeatPaginate={getListSeatPaginate}
+                // getListSeatPaginate={getListSeatPaginate}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
             />
@@ -90,7 +119,7 @@ const SeatAdmin = () => {
                 show={showModalUpdateSeat}
                 setShow={setShowModalUpdateSeat}
                 dataUpdate={dataUpdate}
-                getListSeatPaginate={getListSeatPaginate}
+                // getListSeatPaginate={getListSeatPaginate}
                 setDataUpdate={setDataUpdate}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
@@ -100,7 +129,7 @@ const SeatAdmin = () => {
                 show={showModalDeleteSeat}
                 setShow={setShowModalDeleteSeat}
                 dataDelete={dataDelete}
-                getListSeatPaginate={getListSeatPaginate}
+                // getListSeatPaginate={getListSeatPaginate}
                 setDataDelete={setDataDelete}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}

@@ -53,7 +53,7 @@ const TableCinema = (props) => {
                     }
                     {listCinema && listCinema.length === 0 &&
                         <tr>
-                            <td colSpan={'3'}>Không có dữ liệu</td>
+                            <td colSpan={'4'}>Không có dữ liệu</td>
                         </tr>
                     }
                 </tbody>

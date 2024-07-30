@@ -1,10 +1,16 @@
 import { HiDotsVertical } from "react-icons/hi";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from 'react';
+import { PiArmchairFill } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
 
 const TableRoom = (props) => {
 
-    const { listRoom, pageCount } = props
+    const { listRoom, pageCount, listSeat } = props
+
+    const navigate = useNavigate()
+
+    console.log(listSeat);
 
     const handlePageClick = (event) => {
         props.getListRoomPaginate(+event.selected)
@@ -18,7 +24,7 @@ const TableRoom = (props) => {
                     <tr>
                         <th className="bg-info" scope="col">Tên</th>
                         <th className="bg-info" scope="col">Sức chứa</th>
-                        <th className="bg-info" scope="col">Rạp</th>
+                        <th className="bg-info" scope="col">Ghế</th>
                         <th className="bg-info" scope="col">Chức năng</th>
                     </tr>
                 </thead>
@@ -29,7 +35,12 @@ const TableRoom = (props) => {
                                 <tr key={item.id}>
                                     <td>{item.name}</td>
                                     <td>{item.capacity}</td>
-                                    <td>{item.cinema.name}</td>
+                                    <td>
+                                        <button className="btn btn-info" type="button"
+                                            onClick={() => navigate(`/admin/manager-room/${item.id}/seat`, { state: { room: item } })}>
+                                            <PiArmchairFill className="d-flex justify-content-center align-items-center" />
+                                        </button>
+                                    </td>
                                     <td className=''>
                                         <div className="dropdown">
                                             <button className="btn btn-info" type="button" data-bs-toggle="dropdown" aria-expanded="false">

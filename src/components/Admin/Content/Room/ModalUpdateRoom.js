@@ -58,7 +58,11 @@ const ModalUpdateRoom = (props) => {
             return false
         }
         if (isNaN(capacity)) {
-            setErrorCapacity('Sức chưa phải là số')
+            setErrorCapacity('Sức chứa phải là số')
+            return false
+        }
+        if (capacity > 120) {
+            setErrorCapacity('Sức chứa tối đa là 120')
             return false
         }
         setErrorCapacity('')
@@ -98,8 +102,8 @@ const ModalUpdateRoom = (props) => {
             setCapacity(dataUpdate.capacity)
             setSelectedCinema(
                 {
-                    value: dataUpdate.cinema.id,
-                    label: dataUpdate.cinema.name
+                    value: dataUpdate.cinemaId,
+                    label: dataUpdate.cinemaName
                 }
             )
         }

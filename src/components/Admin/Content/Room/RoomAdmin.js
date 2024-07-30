@@ -34,8 +34,7 @@ const RoomAdmin = () => {
     const cinema = location?.state?.cinema
 
     const getListRoomPaginate = async (page) => {
-        debugger
-        let response = await getPageRoom(page, pageSize, cinema.id, token)
+        let response = await getPageRoom(page, pageSize, cinema?.id, token)
         setListRoom(response.content)
         setPageCount(response.totalPages)
     }
@@ -54,13 +53,11 @@ const RoomAdmin = () => {
         setDataDelete(roomDelete)
     }
 
-    const fetchPageMovieByCinemaId = async () => {
-        let response = await getPageRoomByCinemaId(params.id, 0, 10, token)
-        console.log(response);
+    const getListSeatByRoomId = () => {
+
     }
 
     useEffect(() => {
-        // fetchPageMovieByCinemaId()
         getListRoomPaginate(0)
     }, [])
 

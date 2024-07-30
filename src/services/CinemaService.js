@@ -20,11 +20,6 @@ const deleteCinema = (idDelete, token) => {
     return axios.delete(`/api/cinema/delete/${idDelete}`, { headers: { "Authorization": `Bearer ${token}` } })
 }
 
-const getPageRoomByCinemaId = (cinemaId, page, pageSize, token) => {
-    return axios.get(`/api/cinema/${cinemaId}/room?page=${page}&pageSize=${pageSize}`, { headers: { "Authorization": `Bearer ${token}` } })
-}
-
 export {
     getAllCinema, getPageCinema, createCinema, updateCinema, deleteCinema,
-    getPageRoomByCinemaId
 }

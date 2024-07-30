@@ -33,6 +33,24 @@
             }
         }
 
+        .display-container {
+            display: flex;
+            justify-content: center;
+            border: 1px solid black;
+            margin-bottom: 50px;
+        }
+
+        .border-seat {
+            display: flex;
+            justify-content: center;
+            border: 1px solid green;
+            width: 100%;
+
+            .seat {
+                border: 2px solid red;
+            }
+        }
+
         .table-seat {
             padding: 0 20px;
 

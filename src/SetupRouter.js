@@ -67,6 +67,11 @@ const SetupRouter = () => {
                             <RoomAdmin />
                         </AdminRoute>
                     } />
+                    <Route path='manager-room/:id/seat' element={
+                        <AdminRoute>
+                            <SeatAdmin />
+                        </AdminRoute>
+                    } />
                     <Route path='manager-ticket' element={
                         <AdminRoute>
                             <TicketAdmin />
