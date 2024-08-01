@@ -42,7 +42,6 @@ const ModalCreateMovieType = (props) => {
                 handleClose()
             } else {
                 toast.error(response.message)
-                handleClose()
             }
         }
     }

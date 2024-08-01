@@ -71,7 +71,6 @@ const ModalUpdateSeatStatus = (props) => {
                 await props.getListSeatTypePaginate(props.currentPage)
             } else {
                 toast.error(response.message);
-                handleClose()
             }
 
         }

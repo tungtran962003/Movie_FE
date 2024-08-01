@@ -60,7 +60,6 @@ const ModalCreateSeatStatus = (props) => {
                 handleClose()
             } else {
                 toast.error(response.message)
-                handleClose()
             }
         }
     }

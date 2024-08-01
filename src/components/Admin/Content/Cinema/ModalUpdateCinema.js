@@ -89,7 +89,6 @@ const ModalUpdateCinema = (props) => {
                 await props.getListCinemaPaginate(props.currentPage)
             } else {
                 toast.error(response.message);
-                handleClose()
             }
 
         }

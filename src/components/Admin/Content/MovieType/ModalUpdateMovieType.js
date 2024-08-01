@@ -53,7 +53,6 @@ const ModalUpdateMovieType = (props) => {
                 await props.getListMoiveTypePaginate(props.currentPage)
             } else {
                 toast.error(response.message);
-                handleClose()
             }
 
         }

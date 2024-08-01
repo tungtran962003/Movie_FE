@@ -97,7 +97,6 @@ const ModalCreateRoom = (props) => {
                 handleClose()
             } else {
                 toast.error(response.message)
-                handleClose()
             }
         }
     }

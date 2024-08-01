@@ -98,7 +98,6 @@ const ModalCreateTicket = (props) => {
                 handleClose()
             } else {
                 toast.error(response.message)
-                handleClose()
             }
         }
     }
