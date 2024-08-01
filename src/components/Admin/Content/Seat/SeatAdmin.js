@@ -22,7 +22,7 @@ const SeatAdmin = () => {
     //         { id: 5, value: 'Link' },
     //     ]
     // )
-    // const [listSeat, setListSeat] = useState([])
+    const [listSeat, setListSeat] = useState([])
 
 
     const [dataUpdate, setDataUpdate] = useState({})
@@ -46,6 +46,10 @@ const SeatAdmin = () => {
     const room = location?.state?.room
 
     console.log(location);
+
+    const [horizontal, setHorizontal] = useState('')
+
+    const [vertical, setVertical] = useState('')
 
     // const getListSeatPaginate = async (page) => {
     //     let response = await getPageSeat(page, pageSize, token)
@@ -102,8 +106,10 @@ const SeatAdmin = () => {
                     Display
                 </div>
                 <ListSeat
-                // listSeat={listSeat}
-                // setListSeat={setListSeat}
+                    listSeat={listSeat}
+                    setListSeat={setListSeat}
+                    vertical={vertical}
+                    horizontal={horizontal}
                 />
             </div>
 

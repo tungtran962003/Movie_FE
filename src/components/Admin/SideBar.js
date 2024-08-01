@@ -115,12 +115,12 @@ const SideBar = (props) => {
                                     Rạp
                                     <Link to='/admin/manager-cinema' />
                                 </MenuItem>
-                                <MenuItem
+                                {/* <MenuItem
                                     icon={<SiGoogleclassroom />} style={{ fontSize: '18px' }}
                                 >
                                     Phòng
                                     <Link to='/admin/manager-room' />
-                                </MenuItem>
+                                </MenuItem> */}
                                 <MenuItem
                                     icon={<FaTicketAlt />} style={{ fontSize: '18px' }}
                                 >

@@ -2,20 +2,20 @@ import { forEach } from "lodash";
 
 const ListSeat = (props) => {
 
-    // const { listSeat } = props
-    // console.log(listSeat);
+    const { listSeat, setListSeat, horizontal, vertical } = props
 
-    let number = []
+    const a = 5
 
-    for (let i = 0; i < 100; i++) {
-        // Thêm số nguyên i vào mảng
-        number.push(i);
+    const b = 2
+
+    for (let i = 0; i < 5; i++) {
+        listSeat.push(i);
     }
 
     return (
         <div className='border-seat'>
-            {number && number.length > 0 &&
-                number.map((item, index) => {
+            {listSeat && listSeat.length > 0 &&
+                listSeat.map((item, index) => {
                     return (
                         <div className="seat">
                             Ghế
