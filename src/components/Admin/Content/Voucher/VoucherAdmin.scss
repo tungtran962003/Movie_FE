@@ -1,7 +1,7 @@
 .scrollbar-container {
     height: calc(100vh - 60px);
 
-    .account-container {
+    .voucher-container {
         .title-manager {
             font-size: 25px;
             text-transform: uppercase;
@@ -33,7 +33,7 @@
             }
         }
 
-        .table-account {
+        .table-voucher {
             padding: 0 20px;
 
             table {
@@ -54,18 +54,5 @@
                 }
             }
         }
-    }
-}
-
-form {
-    .password-form {
-        position: relative;
-    }
-
-    .show-password {
-        position: absolute;
-        cursor: pointer;
-        right: 10px;
-        bottom: 10px;
     }
 }

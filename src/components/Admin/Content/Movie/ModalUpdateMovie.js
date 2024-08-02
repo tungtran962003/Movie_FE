@@ -408,7 +408,7 @@ const ModalUpdateMovie = (props) => {
                                         </label>
                                         :
                                         <label className='label-upload' htmlFor='labelUpload'>
-                                            <img src={`http://localhost:8080/image/${dataUpdate.id}`} />
+                                            <img src={`http://localhost:8080/image/movie/${dataUpdate.id}`} />
                                         </label>
                                     }
 

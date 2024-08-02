@@ -74,11 +74,12 @@ const ModalCreateMovie = (props) => {
     }
 
     const checkTime = () => {
-        if (name === '') {
+        const regexTime = /\D/
+        if (time === '') {
             setErrorTime('Chưa nhập thời lượng')
             return false
         }
-        if (isNaN(time)) {
+        if (regexTime.test(time)) {
             setErrorTime('Thời lượng phải là số')
             return false
         }

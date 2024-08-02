@@ -10,7 +10,6 @@ const TableSeatStatus = (props) => {
     const handlePageClick = (event) => {
         props.getListSeatStatusPaginate(+event.selected)
         props.setCurrentPage(+event.selected)
-        console.log(`User requested page number ${event.selected}`);
     };
 
 

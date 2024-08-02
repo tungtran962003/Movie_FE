@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { getCookie } from '../../../Auth/CookieManager';
 import { createAccount } from '../../../../services/AccountService';
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 import Select from 'react-select';
 import { getAllRankCustomer } from '../../../../services/RankCustomerService';
 import _ from 'lodash'
@@ -50,6 +52,7 @@ const ModalCreateAccount = (props) => {
     const [listRole, setListRole] = useState([])
     const [avatar, setAvatar] = useState('')
     const [previewAvatar, setPreviewAvatar] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
 
     const [errorName, setErrorName] = useState('')
     const [errorEmail, setErrorEmail] = useState('')
@@ -206,7 +209,6 @@ const ModalCreateAccount = (props) => {
         let isAvatar = checkAvatar()
         let isRankCustomer = checkSelectedRankCustomer()
         let isRole = checkSelectedRole()
-        debugger
         if (isName && isEmail && isPassword && isBirthDay && isPhoneNumber && isAvatar && isRankCustomer && isRole) {
             let response = await createAccount(name, email, password, gender, birthDay, phoneNumber, avatar, selectedRankCustomer.value, selectedRole.value, token)
             if (response.statusCode === 0) {
@@ -216,12 +218,9 @@ const ModalCreateAccount = (props) => {
                 handleClose()
             } else {
                 toast.error(response.message)
-                handleClose()
             }
         }
     }
-
-
 
     return (
         <>
@@ -268,7 +267,7 @@ const ModalCreateAccount = (props) => {
                         </div>
 
                         <div className='d-flex w-100 justify-content-between'>
-                            <div className="mb-3 " style={{ width: '48%' }}>
+                            <div className="mb-3 password-form" style={{ width: '48%' }}>
                                 <div className='d-flex justify-content-between'>
                                     <div>
                                         <label className="form-label fw-bold">Mật khẩu</label>
@@ -277,10 +276,17 @@ const ModalCreateAccount = (props) => {
                                         <span style={{ color: 'red' }}>{errorPassword}</span>
                                     </div>
                                 </div>
-                                <input type="password" className="form-control"
-                                    value={[password]}
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    value={password}
+                                    className="form-control"
                                     onChange={(event) => setPassword(event.target.value)}
                                 />
+                                {showPassword ?
+                                    <span onClick={() => setShowPassword(!showPassword)} className='show-password'><FaEye /></span>
+                                    :
+                                    <span onClick={() => setShowPassword(!showPassword)} className='show-password'><FaEyeSlash /></span>
+                                }
                             </div>
                             <div className="mb-3 " style={{ width: '48%' }}>
                                 <div className='d-flex justify-content-between'>

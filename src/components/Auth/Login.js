@@ -15,7 +15,7 @@ const Login = (props) => {
 
     const navigate = useNavigate()
 
-    const delay = 3000
+    const delay = 0
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

@@ -7,16 +7,16 @@ import _ from 'lodash'
 import 'react-toastify/dist/ReactToastify.css';
 import { MdDelete } from "react-icons/md";
 import { getCookie } from '../../../Auth/CookieManager';
-import { deleteAccount } from '../../../../services/AccountService';
+import { deleteCinema } from '../../../../services/CinemaService';
 
-const ModalDeleteAccount = (props) => {
+const ModalDeleteCinema = (props) => {
     const { show, setShow, dataDelete, setDataDelete } = props;
 
-    const [email, setEmail] = useState('')
+    const [name, setName] = useState('')
 
     const handleClose = () => {
         setShow(false)
-        setEmail('')
+        setName('')
         setDataDelete({})
     }
     const handleShow = () => setShow(true);
@@ -24,15 +24,15 @@ const ModalDeleteAccount = (props) => {
 
     useEffect(() => {
         if (!_.isEmpty(dataDelete)) {
-            setEmail(dataDelete.email)
+            setName(dataDelete.name)
         }
     }, [dataDelete])
 
     const handleSubmitDelete = async () => {
-        let response = await deleteAccount(+dataDelete.id, token)
+        let response = await deleteCinema(+dataDelete.id, token)
         if (response.statusCode === 0) {
             props.setCurrentPage(0)
-            props.getListAccountPaginate(0)
+            props.getListCinemaPaginate(0)
             toast.success(response.message)
             handleClose()
         } else {
@@ -50,10 +50,10 @@ const ModalDeleteAccount = (props) => {
                 backdrop='static'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>XOÁ TÀI KHOẢN</Modal.Title>
+                    <Modal.Title>XOÁ RẠP CHIẾU PHIM</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Bạn có muốn xoá tài khoản có email là <b>{dataDelete && dataDelete.email ? dataDelete.email : ''}</b>
+                    Bạn có muốn xoá rạp chiếu phim <b>{dataDelete && dataDelete.name ? dataDelete.name : ''}</b>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" className='btn-info' onClick={() => handleSubmitDelete()}>
@@ -65,4 +65,4 @@ const ModalDeleteAccount = (props) => {
     );
 }
 
-export default ModalDeleteAccount;
+export default ModalDeleteCinema;
