@@ -33,21 +33,45 @@
             }
         }
 
-        .display-container {
+        .border-display {
+            width: 100%;
             display: flex;
             justify-content: center;
-            border: 1px solid black;
-            margin-bottom: 50px;
+
+            .display-container {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+                font-size: 25px;
+                color: white;
+                font-weight: bold;
+                background-color: #a3a2a2;
+                width: 70%;
+            }
         }
 
         .border-seat {
             display: flex;
             justify-content: center;
-            border: 1px solid green;
             width: 100%;
 
-            .seat {
-                border: 2px solid red;
+            .row-seat {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-right: 17px;
+
+                .seat {
+                    background-color: aqua;
+                    margin-inline-start: 20px;
+                    border-radius: 5px;
+                    width: 40px;
+                    height: 35px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-top: 17px;
+                }
             }
         }
 

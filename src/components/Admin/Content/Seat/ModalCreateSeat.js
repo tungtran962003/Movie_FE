@@ -40,6 +40,11 @@ const ModalCreateSeat = (props) => {
     const [selectedSeatType, setSelectedSeatType] = useState({})
     const [listSeatType, setListSeatType] = useState([])
 
+    const [horizontal, setHorizontal] = useState('')
+    const [vertical, setVertical] = useState('')
+    const [errorVertical, setErrorVertical] = useState('')
+    const [errorHorizontal, setErrorHorizontal] = useState('')
+
     const [errorCode, setErrorCode] = useState('')
     const [errorLine, setErrorLine] = useState('')
     const [errorSelectedRoom, setErrorSelectedRoom] = useState('')
@@ -49,12 +54,31 @@ const ModalCreateSeat = (props) => {
 
     const token = getCookie('cookie')
 
-    const checkCode = () => {
-        if (code === '') {
-            setErrorCode('Chưa nhập mã ghế')
+    const checkHorizontal = () => {
+        const regexHorizontal = /\D/
+        if (horizontal === '') {
+            setErrorHorizontal('Chưa nhập số hàng')
             return false
         }
-        setErrorCode('')
+        if (regexHorizontal.test(horizontal)) {
+            setErrorHorizontal('Hàng phải là số')
+            return false
+        }
+        setErrorHorizontal('')
+        return true
+    }
+
+    const checkVertical = () => {
+        const regexVertical = /\D/
+        if (vertical === '') {
+            setErrorVertical('Chưa nhập số cột')
+            return false
+        }
+        if (regexVertical.test(vertical)) {
+            setErrorVertical('Cột phải là số')
+            return false
+        }
+        setErrorVertical('')
         return true
     }
 
@@ -71,80 +95,77 @@ const ModalCreateSeat = (props) => {
         return true
     }
 
-    const getListRoom = async () => {
-        let response = await getAllRoom(token)
-        if (!_.isEmpty(response)) {
-            let listSelectedRoom = response.map(item => {
-                return {
-                    value: item.id,
-                    label: item.name
-                }
-            })
-            setListRoom(listSelectedRoom)
-        }
-    }
+    // const getListRoom = async () => {
+    //     let response = await getAllRoom(token)
+    //     if (!_.isEmpty(response)) {
+    //         let listSelectedRoom = response.map(item => {
+    //             return {
+    //                 value: item.id,
+    //                 label: item.name
+    //             }
+    //         })
+    //         setListRoom(listSelectedRoom)
+    //     }
+    // }
 
-    const checkSelectedRoom = () => {
-        if (_.isEmpty(selectedRoom)) {
-            setErrorSelectedRoom('Chưa chọn phòng')
-            return false
-        }
-        setErrorSelectedRoom('')
-        return true
-    }
+    // const checkSelectedRoom = () => {
+    //     if (_.isEmpty(selectedRoom)) {
+    //         setErrorSelectedRoom('Chưa chọn phòng')
+    //         return false
+    //     }
+    //     setErrorSelectedRoom('')
+    //     return true
+    // }
 
-    const getListSeatStatus = async () => {
-        let response = await getAllSeatStatus(token)
-        if (!_.isEmpty(response)) {
-            let listSelectedSeatStatus = response.map(item => {
-                return {
-                    value: item.id,
-                    label: item.name
-                }
-            })
-            setListSeatStatus(listSelectedSeatStatus)
-        }
-    }
+    // const getListSeatStatus = async () => {
+    //     let response = await getAllSeatStatus(token)
+    //     if (!_.isEmpty(response)) {
+    //         let listSelectedSeatStatus = response.map(item => {
+    //             return {
+    //                 value: item.id,
+    //                 label: item.name
+    //             }
+    //         })
+    //         setListSeatStatus(listSelectedSeatStatus)
+    //     }
+    // }
 
-    const checkSelectedSeatStatus = () => {
-        if (_.isEmpty(selectedSeatStatus)) {
-            setErrorSelectedSeatStatus('Chưa chọn trạng thái ghế')
-            return false
-        }
-        setErrorSelectedSeatStatus('')
-        return true
-    }
+    // const checkSelectedSeatStatus = () => {
+    //     if (_.isEmpty(selectedSeatStatus)) {
+    //         setErrorSelectedSeatStatus('Chưa chọn trạng thái ghế')
+    //         return false
+    //     }
+    //     setErrorSelectedSeatStatus('')
+    //     return true
+    // }
 
-    const getListSeatType = async () => {
-        let response = await getAllSeatType(token)
-        if (!_.isEmpty(response)) {
-            let listSelectedSeatType = response.map(item => {
-                return {
-                    value: item.id,
-                    label: item.name
-                }
-            })
-            setListSeatType(listSelectedSeatType)
-        }
-    }
+    // const getListSeatType = async () => {
+    //     let response = await getAllSeatType(token)
+    //     if (!_.isEmpty(response)) {
+    //         let listSelectedSeatType = response.map(item => {
+    //             return {
+    //                 value: item.id,
+    //                 label: item.name
+    //             }
+    //         })
+    //         setListSeatType(listSelectedSeatType)
+    //     }
+    // }
 
-    const checkSelectedSeatType = () => {
-        if (_.isEmpty(selectedSeatType)) {
-            setErrorSelectedSeatType('Chưa chọn trạng loại ghế')
-            return false
-        }
-        setErrorSelectedSeatType('')
-        return true
-    }
+    // const checkSelectedSeatType = () => {
+    //     if (_.isEmpty(selectedSeatType)) {
+    //         setErrorSelectedSeatType('Chưa chọn trạng loại ghế')
+    //         return false
+    //     }
+    //     setErrorSelectedSeatType('')
+    //     return true
+    // }
 
 
     const handleSubmitCreate = async () => {
-        let isCode = checkCode()
-        let isLine = checkLine()
-        let isSelectedRoom = checkSelectedRoom()
-        let isSelectedSeatStatus = checkSelectedSeatStatus()
-        let isSelectedSeatType = checkSelectedSeatType()
-        if (isCode && isLine && isSelectedRoom && isSelectedSeatStatus && isSelectedSeatType) {
+        let isHorizontal = checkHorizontal()
+        let isVertical = checkVertical()
+        if (isHorizontal && isVertical) {
             let response = await createSeat(code, line, selectedRoom.value, selectedSeatStatus.value, selectedSeatType.value, token)
             if (response.statusCode === 0) {
                 await getListSeatPaginate(0)
@@ -158,11 +179,11 @@ const ModalCreateSeat = (props) => {
         }
     }
 
-    useEffect(() => {
-        getListRoom()
-        getListSeatStatus()
-        getListSeatType()
-    }, [])
+    // useEffect(() => {
+    //     getListRoom()
+    //     getListSeatStatus()
+    //     getListSeatType()
+    // }, [])
 
     return (
         <>
@@ -177,7 +198,7 @@ const ModalCreateSeat = (props) => {
                 <Modal.Body>
                     <form>
                         <div className=''>
-                            <div className="mb-3 " >
+                            {/* <div className="mb-3 " >
                                 <div className='d-flex justify-content-between'>
                                     <div>
                                         <label className="form-label fw-bold">Mã ghế</label>
@@ -190,12 +211,12 @@ const ModalCreateSeat = (props) => {
                                     value={code}
                                     onChange={(event) => setCode(event.target.value)}
                                 />
-                            </div>
+                            </div> */}
 
                             <div className="mb-3 " >
                                 <div className='d-flex justify-content-between'>
                                     <div>
-                                        <label className="form-label fw-bold">Hàng</label>
+                                        <label className="form-label fw-bold">Số hàng</label>
                                     </div>
                                     <div>
                                         <span style={{ color: 'red' }}>{errorLine}</span>
@@ -210,6 +231,21 @@ const ModalCreateSeat = (props) => {
                             <div className="mb-3 " >
                                 <div className='d-flex justify-content-between'>
                                     <div>
+                                        <label className="form-label fw-bold">Số cột</label>
+                                    </div>
+                                    <div>
+                                        <span style={{ color: 'red' }}>{errorLine}</span>
+                                    </div>
+                                </div>
+                                <input type="text" className="form-control"
+                                    value={line}
+                                    onChange={(event) => setLine(event.target.value)}
+                                />
+                            </div>
+
+                            {/* <div className="mb-3 " >
+                                <div className='d-flex justify-content-between'>
+                                    <div>
                                         <label className="form-label fw-bold">Phòng</label>
                                     </div>
                                     <div>
@@ -222,9 +258,9 @@ const ModalCreateSeat = (props) => {
                                     options={listRoom}
                                     placeholder='Chọn phòng'
                                 />
-                            </div>
+                            </div> */}
 
-                            <div className="mb-3 " >
+                            {/* <div className="mb-3 " >
                                 <div className='d-flex justify-content-between'>
                                     <div>
                                         <label className="form-label fw-bold">Loại ghế</label>
@@ -239,9 +275,9 @@ const ModalCreateSeat = (props) => {
                                     options={listSeatType}
                                     placeholder='Chọn loại ghế'
                                 />
-                            </div>
+                            </div> */}
 
-                            <div className="mb-3 " >
+                            {/* <div className="mb-3 " >
                                 <div className='d-flex justify-content-between'>
                                     <div>
                                         <label className="form-label fw-bold">Trạng thái ghế</label>
@@ -256,7 +292,7 @@ const ModalCreateSeat = (props) => {
                                     options={listSeatStatus}
                                     placeholder='Chọn trạng thái ghế'
                                 />
-                            </div>
+                            </div> */}
                         </div>
                     </form>
                 </Modal.Body>

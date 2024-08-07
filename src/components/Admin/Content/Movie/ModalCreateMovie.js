@@ -25,6 +25,7 @@ const ModalCreateMovie = (props) => {
         setSelectedMovieType('')
         setPreviewImage('')
         setImage('')
+        setTrailer('')
 
         setErrorName('')
         setErrorTime('')
@@ -35,6 +36,7 @@ const ModalCreateMovie = (props) => {
         setErrorDescription('')
         setErrorSelectedMovieType('')
         setErrorImage('')
+        setErrorTrailer('')
     }
     const handleShow = () => setShow(true);
 
@@ -45,9 +47,9 @@ const ModalCreateMovie = (props) => {
     const [director, setDirector] = useState('')
     const [performer, setPerformer] = useState('')
     const [description, setDescription] = useState('')
-    const [movieTypeId, setMovieTypeId] = useState('')
     const [image, setImage] = useState('')
     const [previewImage, setPreviewImage] = useState('')
+    const [trailer, setTrailer] = useState('')
 
     const [selectedMovieType, setSelectedMovieType] = useState({})
     const [listMovieType, setListMovieType] = useState([])
@@ -61,6 +63,7 @@ const ModalCreateMovie = (props) => {
     const [errorDescription, setErrorDescription] = useState('')
     const [errorSelectedMovieType, setErrorSelectedMovieType] = useState('')
     const [errorImage, setErrorImage] = useState('')
+    const [errorTrailer, setErrorTrailer] = useState('')
 
     const token = getCookie('cookie')
 
@@ -132,6 +135,15 @@ const ModalCreateMovie = (props) => {
         return true
     }
 
+    const checkTrailer = () => {
+        if (trailer === '') {
+            setErrorTrailer('Chưa nhập link trailer')
+            return false
+        }
+        setErrorTrailer('')
+        return true
+    }
+
     const checkSelectedMovieType = () => {
         if (_.isEmpty(selectedMovieType)) {
             setErrorSelectedMovieType('Chưa chọn thể loại phim')
@@ -188,9 +200,10 @@ const ModalCreateMovie = (props) => {
         let isPerformer = checkPerformer()
         let isDescription = checkDescription()
         let isSelectedMovieType = checkSelectedMovieType()
+        let isTrailer = checkTrailer()
         let isImage = checkImage()
-        if (isName && isTime && isPremiereDate && isLanguage && isDirector && isPerformer && isDescription && isSelectedMovieType && isImage) {
-            let response = await createMovie(name, time, premiereDate, description, director, language, performer, +selectedMovieType.value, image, token)
+        if (isName && isTime && isPremiereDate && isLanguage && isDirector && isPerformer && isTrailer && isDescription && isSelectedMovieType && isImage) {
+            let response = await createMovie(name, time, premiereDate, description, director, language, performer, +selectedMovieType.value, trailer, image, token)
             if (response.statusCode === 0) {
                 if (tabMovie === 'all') {
                     await getListMoviePaginate(0)
@@ -241,19 +254,25 @@ const ModalCreateMovie = (props) => {
                                     onChange={(event) => setName(event.target.value)}
                                 />
                             </div>
+
                             <div className="mb-3 " style={{ width: '48%' }}>
-                                <div className='d-flex justify-content-between'>
-                                    <div>
-                                        <label className="form-label fw-bold">Thời lượng</label>
+                                <div className="mb-3 " >
+                                    <div className='d-flex justify-content-between'>
+                                        <div>
+                                            <label className="form-label fw-bold">Thể loại</label>
+                                        </div>
+                                        <div>
+                                            <span style={{ color: 'red' }}>{errorSelectedMovieType}</span>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <span style={{ color: 'red' }}>{errorTime}</span>
-                                    </div>
+                                    <Select
+                                        value={selectedMovieType}
+                                        onChange={setSelectedMovieType}
+                                        options={listMovieType}
+                                        placeholder='Chọn thể loại phim'
+                                    />
                                 </div>
-                                <input type="text" className="form-control"
-                                    value={time === '0' ? '' : time}
-                                    onChange={(event) => setTime(event.target.value)}
-                                />
+
                             </div>
                         </div>
 
@@ -337,22 +356,35 @@ const ModalCreateMovie = (props) => {
 
                         <div className='d-flex w-100 justify-content-between'>
                             <div style={{ width: '48%' }}>
-                                <div className="mb-3 " >
+
+                                <div className="mb-3" >
                                     <div className='d-flex justify-content-between'>
                                         <div>
-                                            <label className="form-label fw-bold">Thể loại</label>
+                                            <label className="form-label fw-bold">Trailer</label>
                                         </div>
                                         <div>
-                                            <span style={{ color: 'red' }}>{errorSelectedMovieType}</span>
+                                            <span style={{ color: 'red' }}>{errorTrailer}</span>
                                         </div>
                                     </div>
-                                    <Select
-                                        value={selectedMovieType}
-                                        onChange={setSelectedMovieType}
-                                        options={listMovieType}
-                                        placeholder='Chọn thể loại phim'
+                                    <input type="text" className="form-control"
+                                        value={trailer}
+                                        onChange={(event) => setTrailer(event.target.value)}
                                     />
                                 </div>
+
+                                <div className='d-flex justify-content-between'>
+                                    <div>
+                                        <label className="form-label fw-bold">Thời lượng</label>
+                                    </div>
+                                    <div>
+                                        <span style={{ color: 'red' }}>{errorTime}</span>
+                                    </div>
+                                </div>
+                                <input type="text" className="form-control"
+                                    value={time === '0' ? '' : time}
+                                    onChange={(event) => setTime(event.target.value)}
+                                />
+
                             </div>
                             <div className="mb-3 " style={{ width: '48%' }}>
                                 <div className='d-flex justify-content-between'>

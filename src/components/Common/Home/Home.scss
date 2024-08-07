@@ -1,12 +1,79 @@
 .home-container {
     .home-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
         .title-list-movie {
             font-size: 30px;
             font-weight: 700;
             text-transform: uppercase;
             text-decoration: underline;
             text-align: center;
-            margin: 20px 0;
+            margin: 50px 20px 20px 20px;
+        }
+
+        .list-movie {
+            width: 70%;
+            display: flex;
+            justify-content: space-between;
+
+            .card-movie {
+                margin-top: 40px;
+                width: 22%;
+                height: 500px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .img-movie {
+                    border: 4px solid red;
+                    width: 205px;
+                    height: 300px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                .movie-name {
+                    font-size: 16px;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    margin-bottom: 6px;
+                    margin-top: 5px;
+                }
+
+                .content-movie {
+                    .title-movie {
+                        font-weight: 600;
+
+                        .content {
+                            font-weight: 400;
+                        }
+                    }
+                }
+
+                .btn-function {
+                    display: flex;
+                    justify-content: center;
+
+                    .btn-ticket {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: aqua;
+                        width: 115px;
+                        height: 35px;
+                        border: none;
+                        border-radius: 5px;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                    }
+                }
+            }
         }
     }
 }

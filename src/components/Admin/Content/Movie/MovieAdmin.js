@@ -12,6 +12,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import TableMovieIsShowing from './TableMovieIsShowing'
 import TableUpComingMovie from './TableUpComingMovie'
+import FormSearchMovie from './FormSearchMovie'
 
 const MovieAdmin = () => {
 
@@ -93,6 +94,9 @@ const MovieAdmin = () => {
                             <RiAddBoxFill style={{ fontSize: '25px' }} />
                         </button>
                     </div>
+                </div>
+                <div className='search-container'>
+                    <FormSearchMovie />
                 </div>
                 <div>
                     <Tabs

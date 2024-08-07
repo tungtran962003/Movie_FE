@@ -28,11 +28,11 @@ const TableMovieIsShowing = (props) => {
             <table className="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th className="bg-info" scope="col">ID</th>
-                        <th className="bg-info" scope="col">Tên</th>
+                        {/* <th className="bg-info" scope="col">ID</th> */}
+                        <th className="bg-info" scope="col">Tên phim</th>
                         <th className="bg-info" scope="col">Thời lượng</th>
                         <th className="bg-info" scope="col">Ngày khởi chiếu</th>
-                        <th className="bg-info" scope="col">Mô tả</th>
+                        {/* <th className="bg-info" scope="col">Mô tả</th> */}
                         <th className="bg-info" scope="col">Đạo diễn</th>
                         <th className="bg-info" scope="col">Ngôn ngữ</th>
                         <th className="bg-info" scope="col">Diễn viên</th>
@@ -45,11 +45,11 @@ const TableMovieIsShowing = (props) => {
                         listMovie.map((item, index) => {
                             return (
                                 <tr key={item.id}>
-                                    <td>{item.id}</td>
+                                    {/* <td>{item.id}</td> */}
                                     <td>{item.name}</td>
                                     <td>{item.time + ` phút`}</td>
                                     <td>{convertGMTtoVietnamese(item.premiereDate)}</td>
-                                    <td>{item.description}</td>
+                                    {/* <td>{item.description}</td> */}
                                     <td>{item.director}</td>
                                     <td>{item.language}</td>
                                     <td>{item.performer}</td>

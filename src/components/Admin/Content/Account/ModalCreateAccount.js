@@ -43,7 +43,7 @@ const ModalCreateAccount = (props) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [gender, setGender] = useState(true)
+    const [gender, setGender] = useState(null)
     const [birthDay, setBirthDay] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [selectedRankCustomer, setSelectedRankCustomer] = useState('')
@@ -316,16 +316,16 @@ const ModalCreateAccount = (props) => {
                                     </div>
                                     <div className='d-flex'>
                                         <div className="form-check me-5">
-                                            <input className="form-check-input" type="radio" id="flexRadioDefault1" name='gender' checked
+                                            <input className="form-check-input" type="radio" id="male" name='gender'
                                                 value={true} onChange={(event) => setGender(event.target.value)} />
-                                            <label className="form-check-label" htmlFor="flexRadioDefault1">
+                                            <label className="form-check-label" htmlFor="male">
                                                 Nam
                                             </label>
                                         </div>
                                         <div className="form-check">
-                                            <input className="form-check-input" type="radio" id="flexRadioDefault2" name='gender'
+                                            <input className="form-check-input" type="radio" id="female" name='gender'
                                                 value={false} onChange={(event) => setGender(event.target.value)} />
-                                            <label className="form-check-label" htmlFor="flexRadioDefault2">
+                                            <label className="form-check-label" htmlFor="female">
                                                 Nữ
                                             </label>
                                         </div>

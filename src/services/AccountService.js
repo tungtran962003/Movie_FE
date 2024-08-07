@@ -22,8 +22,18 @@ const createAccount = (name, email, password, gender, birthDay, phoneNumber, fil
     return axios.post('/api/account/create', data, { headers: { "Authorization": `Bearer ${token}` } })
 }
 
-const updateAccount = (idUpdate, name, address, hotline, token) => {
-    return axios.put(`/api/account/update/${idUpdate}`, { name, address, hotline }, { headers: { "Authorization": `Bearer ${token}` } })
+const updateAccount = (idUpdate, name, email, password, gender, birthDay, phoneNumber, file, rankCustomerId, roleId, token) => {
+    const data = new FormData()
+    data.append('name', name)
+    data.append('email', email)
+    data.append('gender', gender)
+    data.append('password', password)
+    data.append('birthDay', birthDay)
+    data.append('phoneNumber', phoneNumber)
+    data.append('file', file)
+    data.append('rankCustomerId', rankCustomerId)
+    data.append('roleId', roleId)
+    return axios.put(`/api/account/update/${idUpdate}`, data, { headers: { "Authorization": `Bearer ${token}` } })
 }
 
 const deleteAccount = (idDelete, token) => {

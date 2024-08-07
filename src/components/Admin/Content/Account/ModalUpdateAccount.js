@@ -4,12 +4,13 @@ import Modal from 'react-bootstrap/Modal';
 import { RiAddBoxFill } from "react-icons/ri";
 import { toast } from 'react-toastify';
 import { getCookie } from '../../../Auth/CookieManager';
-import { createAccount } from '../../../../services/AccountService';
+import { createAccount, updateAccount } from '../../../../services/AccountService';
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import Select from 'react-select';
 import { getAllRankCustomer } from '../../../../services/RankCustomerService';
+import { FaPenSquare } from "react-icons/fa";
 import _ from 'lodash'
 import { getAllRole } from '../../../../services/RoleService';
 
@@ -193,6 +194,15 @@ const ModalUpdateAccount = (props) => {
         }
     }
 
+    const formatDate = (isoDate) => {
+        const date = new Date(isoDate);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Thêm số 0 vào trước nếu cần
+        const day = String(date.getDate()).padStart(2, '0'); // Thêm số 0 vào trước nếu cần
+
+        return `${year}-${month}-${day}`;
+    }
+
     useEffect(() => {
         getListRankCustomer()
         getListRole()
@@ -205,9 +215,8 @@ const ModalUpdateAccount = (props) => {
             setName(dataUpdate.name)
             setEmail(dataUpdate.email)
             setPassword(dataUpdate.password)
-            setGender(dataUpdate.gender)
-            setBirthDay(dataUpdate.birthDay)
             setPhoneNumber(dataUpdate.phoneNumber)
+            setBirthDay(formatDate(dataUpdate.birthDay))
             setSelectedRankCustomer(
                 {
                     value: dataUpdate.rankCustomer.id,
@@ -220,6 +229,11 @@ const ModalUpdateAccount = (props) => {
                     label: dataUpdate.role.name
                 }
             )
+            if (dataUpdate.gender) {
+                document.getElementById('flexRadioDefault1').checked = 'true'
+            } else {
+                document.getElementById('flexRadioDefault2').checked = 'true'
+            }
         }
     }, [dataUpdate])
 
@@ -233,7 +247,7 @@ const ModalUpdateAccount = (props) => {
         let isRankCustomer = checkSelectedRankCustomer()
         let isRole = checkSelectedRole()
         if (isName && isEmail && isPassword && isBirthDay && isPhoneNumber && isAvatar && isRankCustomer && isRole) {
-            let response = await createAccount(name, email, password, gender, birthDay, phoneNumber, avatar, selectedRankCustomer.value, selectedRole.value, token)
+            let response = await updateAccount(dataUpdate.id, name, email, password, gender, birthDay, phoneNumber, avatar, selectedRankCustomer.value, selectedRole.value, token)
             if (response.statusCode === 0) {
                 await getListAccountPaginate(0)
                 props.setCurrentPage(0)
@@ -268,8 +282,7 @@ const ModalUpdateAccount = (props) => {
                                         <span style={{ color: 'red' }}>{errorName}</span>
                                     </div>
                                 </div>
-                                <input type="text" className="form-control"
-                                    value={name}
+                                <input type="text" className="form-control" value={name}
                                     onChange={(event) => setName(event.target.value)}
                                 />
                             </div>
@@ -304,14 +317,16 @@ const ModalUpdateAccount = (props) => {
                                     <div className='d-flex'>
                                         <div className="form-check me-5">
                                             <input className="form-check-input" type="radio" id="flexRadioDefault1" name='gender'
-                                                value={true} onChange={(event) => setGender(event.target.value)} />
+                                                value={true} onChange={(event) => setGender(event.target.value)}
+                                            />
                                             <label className="form-check-label" htmlFor="flexRadioDefault1">
                                                 Nam
                                             </label>
                                         </div>
                                         <div className="form-check">
                                             <input className="form-check-input" type="radio" id="flexRadioDefault2" name='gender'
-                                                value={false} onChange={(event) => setGender(event.target.value)} />
+                                                value={false} onChange={(event) => setGender(event.target.value)}
+                                            />
                                             <label className="form-check-label" htmlFor="flexRadioDefault2">
                                                 Nữ
                                             </label>
@@ -424,7 +439,7 @@ const ModalUpdateAccount = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" className='btn-info' onClick={() => handleSubmitUpdate()}>
-                        <RiAddBoxFill style={{ fontSize: '25px', margin: '0 15px' }} />
+                        <FaPenSquare style={{ fontSize: '25px', margin: '0 15px' }} />
                     </Button>
                 </Modal.Footer>
             </Modal>

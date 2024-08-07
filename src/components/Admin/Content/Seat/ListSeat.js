@@ -4,9 +4,9 @@ const ListSeat = (props) => {
 
     const { listSeat, setListSeat, horizontal, vertical } = props
 
-    const cols = 2
+    const cols = 10
 
-    const rows = 5
+    const rows = 10
 
     const listRow = []
     const listCol = []
@@ -22,11 +22,11 @@ const ListSeat = (props) => {
         <div className='border-seat'>
             {
                 listRow.map(row => (
-                    <div>
+                    <div className="row-seat">
                         {
                             listCol.map(col => (
                                 <div className="seat">
-                                    Ghế 123
+                                    Ghế
                                 </div>
                             ))
                         }

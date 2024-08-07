@@ -13,17 +13,7 @@ import ListSeat from './ListSeat'
 
 const SeatAdmin = () => {
 
-    // const [listSeat, setListSeat] = useState(
-    //     [
-    //         { id: 1, value: 'Tung' },
-    //         { id: 2, value: 'Van' },
-    //         { id: 3, value: 'Toan' },
-    //         { id: 4, value: 'Duong' },
-    //         { id: 5, value: 'Link' },
-    //     ]
-    // )
     const [listSeat, setListSeat] = useState([])
-
 
     const [dataUpdate, setDataUpdate] = useState({})
 
@@ -44,8 +34,6 @@ const SeatAdmin = () => {
     const location = useLocation()
 
     const room = location?.state?.room
-
-    console.log(location);
 
     const [horizontal, setHorizontal] = useState('')
 
@@ -102,8 +90,10 @@ const SeatAdmin = () => {
                         setCurrentPage={setCurrentPage}
                     />
                 </div> */}
-                <div className='display-container'>
-                    Display
+                <div className='border-display'>
+                    <div className='display-container'>
+                        Màn hình
+                    </div>
                 </div>
                 <ListSeat
                     listSeat={listSeat}
